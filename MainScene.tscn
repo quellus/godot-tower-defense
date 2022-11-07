@@ -1,11 +1,11 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Models/Environment/Ground.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Models/Environment/tree5.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Models/Environment/rock2.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://Models/Environment/tree6.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Pickup_Ammo.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Pickup_Health.tscn" type="PackedScene" id=9]
@@ -18,11 +18,6 @@
 [ext_resource path="res://Pickup_Small_Health.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Models/watere/materials/basic_water_material.material" type="Material" id=17]
 [ext_resource path="res://Nessie.tscn" type="PackedScene" id=18]
-[ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=19]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=20]
-[ext_resource path="res://slot0_normal_roughness.packed_tex" type="Texture" id=21]
-[ext_resource path="res://Terrain/data.hterrain" type="Resource" id=22]
-[ext_resource path="res://slot0_albedo_bump.packed_tex" type="Texture" id=23]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.8, 0.399817, 0.075933, 1 )
@@ -242,11 +237,6 @@ data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0,
 [sub_resource type="PlaneMesh" id=25]
 material = SubResource( 24 )
 
-[sub_resource type="Resource" id=26]
-script = ExtResource( 19 )
-mode = 0
-textures = [ [ ExtResource( 23 ) ], [ ExtResource( 21 ) ] ]
-
 [node name="MainScene" type="Spatial"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -418,22 +408,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5434, 0, -3.18522 )
 
 [node name="Enemy4" parent="Enemy" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53398, 0, -14.5184 )
-
-[node name="HTerrain" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -100 )
-script = ExtResource( 20 )
-lod_scale = 2.0
-_terrain_data = ExtResource( 22 )
-chunk_size = 32
-collision_enabled = true
-collision_layer = 1
-collision_mask = 1
-shader_type = "Classic4Lite"
-custom_shader = null
-custom_globalmap_shader = null
-texture_set = SubResource( 26 )
-render_layers = 1
-shader_params/u_ground_uv_scale = 20
-shader_params/u_depth_blending = true
-shader_params/u_triplanar = false
-shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )

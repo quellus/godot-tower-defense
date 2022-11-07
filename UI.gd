@@ -7,7 +7,6 @@ onready var pistol = $pistol
 
 #node
 onready var healthBar : TextureProgress = get_node("HealthBar")
-onready var staminaBar : TextureProgress = get_node("StaminaBar")
 onready var ammoText : Label = get_node("AmmoText")
 onready var scoreText : Label = get_node("ScoreText")
 onready var weaponText : Label = get_node("Weapon")
@@ -40,12 +39,6 @@ func update_health_bar (curHp, maxHp):
 	
 	healthBar.max_value = maxHp
 	healthBar.value = curHp
-	pass
-	
-func update_stamina_bar (curStamina, maxStamina):
-	
-	staminaBar.max_value = maxStamina
-	staminaBar.value = curStamina
 	pass
 	
 func update_ammo_text (ammo):
