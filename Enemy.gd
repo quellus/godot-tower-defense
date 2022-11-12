@@ -39,5 +39,5 @@ func _physics_process(delta) -> void:
 			queue_free()
 	vel = move_and_slide(vel, Vector3.UP)
 
-	
-	pass
+func damage(amount):
+	queue_free()

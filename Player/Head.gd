@@ -3,12 +3,19 @@ extends Spatial
 
 export(NodePath) var cam_path := NodePath("Camera")
 onready var cam: Camera = get_node(cam_path)
+export(NodePath) var raycast_path := NodePath("RayCast")
+onready var raycast: RayCast = get_node(raycast_path)
 
 export var mouse_sensitivity := 2.0
 export var y_limit := 90.0
 var mouse_axis := Vector2()
 var rot := Vector3()
 
+func _physics_process(delta) -> void:
+	if raycast.is_colliding() && Input.is_action_just_pressed("fire"):
+		var enemy = raycast.get_collider()
+		if enemy.has_method("damage"):
+			enemy.damage(1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
