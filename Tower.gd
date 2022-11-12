@@ -15,5 +15,10 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 	if nodeList.size() > 0:
 		var closestNode = nodeList[0]
 		var closestDist = location.distance_to(closestNode.global_translation)
+		for node in nodeList:
+			var dist = location.distance_to(node.global_translation)
+			if dist < closestDist:
+				closestNode = node
+				closestDist = dist
 		return closestNode
 	return null
