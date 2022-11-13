@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="First Person Starter"
+config/name="Tower Defense"
 run/main_scene="res://Main/L_Main.tscn"
 config/icon="res://icon.png"
 
