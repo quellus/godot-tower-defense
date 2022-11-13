@@ -1,15 +1,18 @@
 extends KinematicBody
 
 onready var enemies: Spatial = get_node("/root/L_Main/Enemies")
+var closestEnemy: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta) -> void:
-	var closestEnemy: Node = get_closest(enemies.get_children(), global_translation)
+	closestEnemy = get_closest(enemies.get_children(), global_translation)
 	if closestEnemy:
-		look_at(closestEnemy.global_translation, Vector3.UP)
+		var enemyLocation = closestEnemy.global_translation
+		enemyLocation.y = global_translation.y
+		look_at(enemyLocation, Vector3.UP)
 
 func get_closest(nodeList: Array, location: Vector3) -> Node:
 	if nodeList.size() > 0:
