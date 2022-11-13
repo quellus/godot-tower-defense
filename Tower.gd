@@ -1,7 +1,11 @@
 extends KinematicBody
 
 onready var enemies: Spatial = get_node("/root/L_Main/Enemies")
+onready var raycast: RayCast = get_node("RayCast")
+onready var timer = get_node("Timer")
+
 var closestEnemy: Node = null
+var timerReady = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +15,13 @@ func _physics_process(delta) -> void:
 	closestEnemy = get_closest(enemies.get_children(), global_translation)
 	if closestEnemy:
 		var enemyLocation = closestEnemy.global_translation
+		raycast.look_at(enemyLocation, Vector3.UP)
+		if raycast.is_colliding() && timer.is_stopped():
+			var enemy = raycast.get_collider()
+			if enemy.has_method("damage"):
+				timer.start()
+				enemy.damage(1)
+
 		enemyLocation.y = global_translation.y
 		look_at(enemyLocation, Vector3.UP)
 
@@ -25,3 +36,5 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 				closestDist = dist
 		return closestNode
 	return null
+
+
