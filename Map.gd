@@ -25,8 +25,6 @@ func _ready():
 				for y in range(lower, higher):
 					set_cell_item(coord.x, 0, y, 1)
 			elif lastCoord.y == coord.y:
-				print("heck")
-				
 				var lower = min(lastCoord.x, coord.x)
 				var higher = max(lastCoord.x, coord.x)
 				for x in range(lower, higher):
