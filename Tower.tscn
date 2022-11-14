@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Tower.gltf" type="PackedScene" id=1]
+[ext_resource path="res://Tower.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.762185
+height = 1.21003
+
+[node name="Tower" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54354, -0.738117 )
+enabled = true
+cast_to = Vector3( 0, 0, -20 )
+
+[node name="Mesh" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.31586, 0 )
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true

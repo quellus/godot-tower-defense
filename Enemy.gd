@@ -1,69 +1,43 @@
 extends KinematicBody
 
-# stats
-var health : int = 5
-var moveSpeed : float = 2.0
+onready var map = get_node("/root/L_Main/GridMap")
 
-# attacking
-var damage : int = 1
-var attackRate : float = 1.0
-var attackDist : float = 2.0
-
-var scoreToGive : int = 10
-
-#physics
+var coords: Array = []
+var currentTarget: Vector2 = Vector2()
+var currentTargetIndex: int = 0
 var vel : Vector3 = Vector3()
-var gravity : float = 12.0
-# components
-onready var player : Node = get_node("/root/MainScene/Player")
-onready var timer : Timer = get_node("Timer")
+var targetDistEpsilon = 0.2
+var moveSpeed = 4
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
+	coords = map.get_coords()
+	var first_point = coords[0]
+	global_translate(map.map_to_world(first_point.x, 0, first_point.y))
 	
-	# setup the timer
-	timer.set_wait_time(attackRate)
-	timer.start()
-	pass
+	# TODO Delete this
+	currentTarget = coords[1]
 
-func _physics_process(delta):
-	#apply gravity
-	vel.y -= gravity * delta
+# Called every physics tick. 'delta' is constant
+func _physics_process(delta) -> void:
+	vel.y = 0
+	var currentTargetTranslation = map.map_to_world(currentTarget.x, 0, currentTarget.y)
+	currentTargetTranslation.y = translation.y
 	# calculate the direction to the player
-	var dir = (player.translation - translation).normalized()
+	var dir = (currentTargetTranslation - translation).normalized()
 	dir.y = 0
 	
 	# move the enemy towards the player
-	if translation.distance_to(player.translation) > attackDist:
+	if translation.distance_to(currentTargetTranslation) > targetDistEpsilon:
+		look_at(currentTargetTranslation, Vector3.UP)
 		move_and_slide(dir * moveSpeed, Vector3.UP)
+	else:
+		currentTargetIndex += 1
+		if currentTargetIndex < coords.size():
+			currentTarget = coords[currentTargetIndex]
+		else:
+			queue_free()
 	vel = move_and_slide(vel, Vector3.UP)
-	pass
 
-# called when we get damaged by the player
-func take_damage (damage):
-	
-	health -= damage
-	
-	if health <= 0:
-		die()
-	pass
-
-# called when our health reaches 0
-func die ():
-	
-	player.add_score(scoreToGive)
+func damage(amount):
 	queue_free()
-
-# deals damage to the player
-func attack ():
-	
-	player.take_damage(damage)
-	pass
-	
-# called every 'attackRate' seconds
-func _on_Timer_timeout():
-	
-	# if we're at the right distance, attack the player
-	if translation.distance_to(player.translation) <= attackDist:
-		attack()
-	pass
-pass
