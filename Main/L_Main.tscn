@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main/L_Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/Environment.tres" type="Environment" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://EnemySpawner.gd" type="Script" id=5]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Tower.tscn" type="PackedScene" id=8]
+
+[sub_resource type="PointMesh" id=1]
 
 [node name="L_Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -47,5 +49,8 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 12 )
 
 [node name="Enemies" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]
