@@ -12,10 +12,12 @@ var mouse_axis := Vector2()
 var rot := Vector3()
 
 func _physics_process(delta) -> void:
-	if raycast.is_colliding() && Input.is_action_just_pressed("fire"):
-		var enemy = raycast.get_collider()
-		if enemy.has_method("damage"):
-			enemy.damage(1)
+	if raycast.is_colliding():
+		var target = raycast.get_collider()
+		# TODO spawn tower at target location
+		if Input.is_action_just_pressed("fire"):
+			if target.has_method("damage"):
+				target.damage(1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -1,6 +1,6 @@
 extends KinematicBody
 
-onready var enemies: Spatial = get_node("/root/L_Main/Enemies")
+onready var enemies: Spatial = get_node("/root/L_Main/Path")
 onready var raycast: RayCast = get_node("RayCast")
 #onready var bullet: Spatial = get_node("RayCast/Spatial")
 onready var bullet = load("res://Bullet.tscn")
@@ -19,9 +19,8 @@ func _physics_process(delta) -> void:
 		var enemyLocation = closestEnemy.global_translation
 		raycast.look_at(enemyLocation, Vector3.UP)
 		if raycast.is_colliding() && timer.is_stopped():
-			var enemy = raycast.get_collider()
+			var enemy = raycast.get_collider().get_parent()
 			if enemy.has_method("damage"):
-#				bullet.fire()
 				var bulletInstance = bullet.instance()
 				bulletInstance.global_transform = raycast.global_transform
 				get_node("/root/L_Main").add_child(bulletInstance)

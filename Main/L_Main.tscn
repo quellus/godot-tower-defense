@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main/L_Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/Environment.tres" type="Environment" id=2]
@@ -7,8 +7,14 @@
 [ext_resource path="res://EnemySpawner.gd" type="Script" id=5]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Tower.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Main/Path.gd" type="Script" id=9]
 
-[sub_resource type="PointMesh" id=1]
+[sub_resource type="Curve3D" id=2]
+bake_interval = 0.01
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.491673, 1.78449, 0.858003, 0, 0, 0, 0, 0, 0, -0.575534, 1.65578, 20.8369, 0, 0, 0, 0, 0, 0, 21.3139, 1.78449, 20.8693, 0, 0, 0, 0, 0, 0, 21.0548, 1.91402, 11.1551, 0, 0, 0, 0, 0, 0, 13.2834, 1.91402, 11.2198, 0, 0, 0, 0, 0, 0, 13.1539, 2.1083, 39.5854 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
+}
 
 [node name="L_Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -38,19 +44,20 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="EnemySpawner" type="Spatial" parent="."]
-script = ExtResource( 5 )
-
-[node name="Timer" type="Timer" parent="EnemySpawner"]
-wait_time = 2.0
-autostart = true
-
 [node name="Tower" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 12 )
 
 [node name="Enemies" type="Spatial" parent="."]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
+[node name="EnemySpawner" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+autostart = true
+
+[node name="Path" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+curve = SubResource( 2 )
+script = ExtResource( 9 )
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]
