@@ -1,10 +1,10 @@
 extends Spatial
 
-
-export(NodePath) var cam_path := NodePath("Camera")
-onready var cam: Camera = get_node(cam_path)
-export(NodePath) var raycast_path := NodePath("RayCast")
-onready var raycast: RayCast = get_node(raycast_path)
+onready var cam: Camera = get_node(NodePath("Camera"))
+onready var raycast: RayCast = get_node(NodePath("RayCast"))
+onready var root = get_node("/root/L_Main")
+onready var tower = load("res://Tower.tscn")
+onready var indicator = get_node("Indicator")
 
 export var mouse_sensitivity := 2.0
 export var y_limit := 90.0
@@ -14,10 +14,23 @@ var rot := Vector3()
 func _physics_process(delta) -> void:
 	if raycast.is_colliding():
 		var target = raycast.get_collider()
+		if target.name == "GridMap":
+			var location = raycast.get_collision_point()
+			var coord = target.world_to_map(location)
+			indicator.global_translation = target.map_to_world(coord.x, coord.y, coord.z)
+			if Input.is_action_just_pressed("fire"):
+				var towerInstance = tower.instance()
+				root.add_child(towerInstance)
+				towerInstance.global_translation = indicator.global_translation
+			indicator.visible = true
+		else:
+			indicator.visible = false
 		# TODO spawn tower at target location
 		if Input.is_action_just_pressed("fire"):
 			if target.has_method("damage"):
 				target.damage(1)
+	else:
+		indicator.visible = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -15,7 +15,6 @@ func _physics_process(delta) -> void:
 func _on_Timer_timeout():
 	var enemyInstance = enemy.instance()
 	var first_point: Vector3 = path.curve.get_point_position(0)
-	enemyInstance.global_translate(first_point)
 	enemies.add_child(enemyInstance)
 	enemyInstance.global_translate(first_point)
 	pass # Replace with function body.
