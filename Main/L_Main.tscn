@@ -5,8 +5,8 @@
 [ext_resource path="res://MapMeshLib.tres" type="MeshLibrary" id=3]
 [ext_resource path="res://Map.gd" type="Script" id=4]
 [ext_resource path="res://EnemySpawner.gd" type="Script" id=5]
+[ext_resource path="res://Main/TowerFactory.gd" type="Script" id=6]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Tower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Main/Path.gd" type="Script" id=9]
 
 [sub_resource type="Curve3D" id=2]
@@ -44,9 +44,6 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="Tower" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 12 )
-
 [node name="Enemies" type="Spatial" parent="."]
 
 [node name="EnemySpawner" type="Spatial" parent="."]
@@ -59,5 +56,8 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 curve = SubResource( 2 )
 script = ExtResource( 9 )
+
+[node name="Towers" type="Spatial" parent="."]
+script = ExtResource( 6 )
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

@@ -30,7 +30,10 @@ func _ready():
 				for x in range(lower, higher):
 					set_cell_item(x, 0, coord.y, 1)
 		lastCoord = coord
-	pass # Replace with function body.
+
+func can_place_tower(location: Vector3)-> bool:
+	var coord = world_to_map(location)
+	return get_cell_item(coord.x, coord.y, coord.z) == 0
 
 func get_coords():
 	return coords

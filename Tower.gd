@@ -42,4 +42,3 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 		return closestNode
 	return null
 
-
