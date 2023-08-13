@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Enemy.gltf-99eebc1138d25f6019591b23d2babdd9.scn"
+path="res://.import/Enemy.gltf-21409fa3b0a3037ecf89d36e582fb242.scn"
 
 [deps]
 
-source_file="res://Enemy.gltf"
-dest_files=[ "res://.import/Enemy.gltf-99eebc1138d25f6019591b23d2babdd9.scn" ]
+source_file="res://Enemy/Enemy.gltf"
+dest_files=[ "res://.import/Enemy.gltf-21409fa3b0a3037ecf89d36e582fb242.scn" ]
 
 [params]
 
