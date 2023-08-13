@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/MovementController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Head.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Sprint.gd" type="Script" id=3]
+[ext_resource path="res://Player/Crosshair.png" type="Texture" id=4]
 
 [node name="Player" instance=ExtResource( 1 )]
 
@@ -10,3 +11,10 @@
 
 [node name="Sprint" type="Node" parent="." index="2"]
 script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="." index="3"]
+margin_left = 500.0
+margin_top = 300.0
+margin_right = 516.0
+margin_bottom = 316.0
+texture = ExtResource( 4 )

@@ -1,18 +1,19 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main/L_Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/Environment.tres" type="Environment" id=2]
 [ext_resource path="res://MapMeshLib.tres" type="MeshLibrary" id=3]
-[ext_resource path="res://Map.gd" type="Script" id=4]
+[ext_resource path="res://GridMap.gd" type="Script" id=4]
 [ext_resource path="res://EnemySpawner.gd" type="Script" id=5]
 [ext_resource path="res://Main/TowerFactory.gd" type="Script" id=6]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Tower/Tower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Main/Path.gd" type="Script" id=9]
 
 [sub_resource type="Curve3D" id=2]
 bake_interval = 0.01
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 8.93586, 1.78448, 0.395992, 0, 0, 0, 0, 0, 0, 9.11526, 1.65578, 21.0266, 0, 0, 0, 0, 0, 0, 31.1093, 1.78448, 21.0984, 0, 0, 0, 0, 0, 0, 30.9658, 1.91402, 11.0521, 0, 0, 0, 0, 0, 0, 23.2517, 1.91402, 11.1598, 0, 0, 0, 0, 0, 0, 23.0106, 2.10829, 39.5608 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 8.93586, 1.78448, 0.395992, 0, 0, 0, 0, 0, 0, 9.13209, 1.65579, 20.9873, 0, 0, 0, 0, 0, 0, 31.1093, 1.78448, 21.0984, 0, 0, 0, 0, 0, 0, 30.9658, 1.91402, 11.0521, 0, 0, 0, 0, 0, 0, 23.2517, 1.91402, 11.1598, 0, 0, 0, 0, 0, 0, 23.1537, 2, 38.909 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
@@ -53,11 +54,20 @@ script = ExtResource( 5 )
 autostart = true
 
 [node name="Path" type="Path" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 0.999992, -1.72417e-10, -0.00394443, 1.72417e-10, 1, -3.41308e-13, 0.00394443, -3.41308e-13, 0.999992, 0, 1, 0 )
 curve = SubResource( 2 )
 script = ExtResource( 9 )
 
 [node name="Towers" type="Spatial" parent="."]
 script = ExtResource( 6 )
+
+[node name="Tower3" parent="Towers" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 21 )
+
+[node name="Tower" parent="Towers" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 8 )
+
+[node name="Tower2" parent="Towers" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19 )
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

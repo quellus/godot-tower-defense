@@ -3,10 +3,7 @@ extends Spatial
 onready var cam: Camera = get_node(NodePath("Camera"))
 onready var raycast: RayCast = get_node(NodePath("RayCast"))
 onready var towers: Spatial = get_node("/root/L_Main/Towers")
-onready var indicator: Spatial = get_node("Indicator")
 onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
-
-onready var tower = load("res://Tower.tscn")
 
 export var mouse_sensitivity := 2.0
 export var y_limit := 90.0
@@ -16,19 +13,12 @@ var rot := Vector3()
 func _physics_process(delta) -> void:
 	if raycast.is_colliding():
 		var target = raycast.get_collider()
-		indicator.visible = false
-		var location = raycast.get_collision_point()
-		if target.name == "GridMap":
-			var map_pos = target.world_to_map(location)
-			var world_pos = target.map_to_world(map_pos.x, map_pos.y, map_pos.z)
-			if gridmap.can_place_tower(location) && !towers.is_tower_at(world_pos):
-				indicator.global_translation = world_pos
-				indicator.visible = true
-				if Input.is_action_just_pressed("fire"):
-					towers.add_tower(indicator.global_translation)
 		if Input.is_action_just_pressed("fire"):
-			if target.has_method("damage"):
-				target.damage(1)
+			var enemy: Node = target.get_parent()
+			if enemy.has_method("damage"):
+				enemy.damage(1)
+			elif target.has_method("refill_health"): 
+				target.refill_health()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

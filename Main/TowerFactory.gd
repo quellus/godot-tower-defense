@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var tower = load("res://Tower.tscn")
+onready var tower = load("res://Tower/Tower.tscn")
 
 var towerLocs: Array = []
 

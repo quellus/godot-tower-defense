@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Tower.gltf-39193cfca8b238cf528a9f68ce529b4e.scn"
+path="res://.import/Tower.gltf-5885069d5186b077104bacbe2a387454.scn"
 
 [deps]
 
-source_file="res://Tower.gltf"
-dest_files=[ "res://.import/Tower.gltf-39193cfca8b238cf528a9f68ce529b4e.scn" ]
+source_file="res://Tower/Tower.gltf"
+dest_files=[ "res://.import/Tower.gltf-5885069d5186b077104bacbe2a387454.scn" ]
 
 [params]
 
