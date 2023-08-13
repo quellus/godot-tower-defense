@@ -10,15 +10,30 @@ export var y_limit := 90.0
 var mouse_axis := Vector2()
 var rot := Vector3()
 
+var pickup = Pickups.NONE
+
+enum Pickups {
+	AMMO_BOX
+	NONE
+}
+
 func _physics_process(delta) -> void:
-	if raycast.is_colliding():
+	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
 		var target = raycast.get_collider()
-		if Input.is_action_just_pressed("fire"):
-			var enemy: Node = target.get_parent()
-			if enemy.has_method("damage"):
-				enemy.damage(1)
-			elif target.has_method("refill_health"): 
-				target.refill_health()
+		var target_parent: Node = target.get_parent()
+		if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
+			target_parent.damage(1)
+		elif target.is_in_group("tower") and target.has_method("add_ammo") and pickup == Pickups.AMMO_BOX: # tower interaction
+			var ammo_box = get_node("../Pickups/AmmoBox")
+			ammo_box.remove_ammo(ammo_box.get_ammo() - target.add_ammo(ammo_box.get_ammo()))
+			if ammo_box.get_ammo() <= 0:
+				pickup = Pickups.NONE
+				ammo_box.visible = false
+		elif pickup == Pickups.NONE and target.is_in_group("pickup"): # pickup interaction
+			target.queue_free()
+			var ammo_box = get_node("../Pickups/AmmoBox")
+			ammo_box.visible = true
+			pickup = Pickups.AMMO_BOX
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

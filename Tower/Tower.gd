@@ -8,8 +8,10 @@ onready var timer = get_node("Timer")
 var closestEnemy: Node = null
 var timerReady = true
 
-var health = 100
-var health_cost_per_shot = 10
+const max_ammo = 100
+var ammo = 50
+const ammo_cost_per_shot = 10
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,18 +24,18 @@ func _physics_process(delta) -> void:
 		raycast.look_at(enemyLocation, Vector3.UP)
 		if raycast.is_colliding() && timer.is_stopped():
 			var enemy = raycast.get_collider().get_parent()
-			if health > 0 and enemy.has_method("damage"):
+			if ammo > 0 and enemy.has_method("damage"):
 				var bulletInstance = bullet.instance()
 				bulletInstance.global_transform = raycast.global_transform
 				get_node("/root/L_Main").add_child(bulletInstance)
 				timer.start()
 				enemy.damage(1)
-				health -= health_cost_per_shot
+				ammo -= ammo_cost_per_shot
 
 		enemyLocation.y = global_translation.y
 		look_at(enemyLocation, Vector3.UP)
 		
-	$Viewport/ProgressBar.value = health
+	$Viewport/ProgressBar.value = ammo
 
 func get_closest(nodeList: Array, location: Vector3) -> Node:
 	if nodeList.size() > 0:
@@ -47,5 +49,14 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 		return closestNode
 	return null
 
-func refill_health():
-	health = 100
+func add_ammo(amount) -> int:
+	if (ammo < max_ammo):
+		var empty = max_ammo - ammo
+		var add = 0
+		if empty > amount:
+			add = amount
+		else:
+			add = amount - empty
+		ammo += add
+		return add
+	return 0

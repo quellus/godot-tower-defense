@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main/L_Main.gd" type="Script" id=1]
 [ext_resource path="res://Main/Environment.tres" type="Environment" id=2]
 [ext_resource path="res://MapMeshLib.tres" type="MeshLibrary" id=3]
+[ext_resource path="res://Main/Pickup.gd" type="Script" id=4]
 [ext_resource path="res://Enemy/EnemySpawner.gd" type="Script" id=5]
 [ext_resource path="res://Main/TowerFactory.gd" type="Script" id=6]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=7]
@@ -14,6 +15,10 @@ _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 8.93586, 1.78448, 0.395992, 0, 0, 0, 0, 0, 0, 9.13209, 1.65579, 20.9873, 0, 0, 0, 0, 0, 0, 31.1093, 1.78448, 21.0984, 0, 0, 0, 0, 0, 0, 30.9658, 1.91402, 11.0521, 0, 0, 0, 0, 0, 0, 23.2517, 1.91402, 11.1598, 0, 0, 0, 0, 0, 0, 23.1537, 2, 38.909 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="BoxShape" id=4]
 
 [node name="L_Main" type="Spatial"]
 script = ExtResource( 1 )
@@ -65,5 +70,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 8 )
 
 [node name="Tower2" parent="Towers" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19 )
+
+[node name="Pickup" type="RigidBody" parent="." groups=["pickup"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 13.5627 )
+collision_layer = 5
+script = ExtResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Pickup"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+mesh = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Pickup"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 4 )
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]

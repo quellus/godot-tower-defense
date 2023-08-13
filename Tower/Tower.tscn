@@ -11,7 +11,8 @@ height = 1.21003
 [sub_resource type="ViewportTexture" id=2]
 viewport_path = NodePath("Viewport")
 
-[node name="Tower" type="KinematicBody"]
+[node name="Tower" type="KinematicBody" groups=["tower"]]
+collision_layer = 5
 script = ExtResource( 2 )
 
 [node name="RayCast" type="RayCast" parent="."]

@@ -14,3 +14,4 @@ fov = 75.0
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 20, 0 )
+collision_mask = 4
