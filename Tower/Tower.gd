@@ -4,6 +4,7 @@ onready var enemies: Spatial = get_node("/root/L_Main/Path")
 onready var raycast: RayCast = get_node("RayCast")
 onready var bullet = load("res://Tower/Bullet.tscn")
 onready var timer = get_node("Timer")
+onready var audio_stream: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
 
 var closestEnemy: Node = null
 var timerReady = true
@@ -31,6 +32,7 @@ func _physics_process(delta) -> void:
 				timer.start()
 				enemy.damage(1)
 				ammo -= ammo_cost_per_shot
+				audio_stream.play()
 
 		enemyLocation.y = global_translation.y
 		look_at(enemyLocation, Vector3.UP)
