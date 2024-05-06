@@ -1,19 +1,19 @@
-extends Spatial
+extends Node3D
 
-onready var cam: Camera = get_node(NodePath("Camera"))
-onready var raycast: RayCast = get_node(NodePath("RayCast"))
-onready var towers: Spatial = get_node("/root/L_Main/Towers")
-onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
+@onready var cam: Camera3D = get_node(NodePath("Camera3D"))
+@onready var raycast: RayCast3D = get_node(NodePath("RayCast3D"))
+@onready var towers: Node3D = get_node("/root/L_Main/Towers")
+@onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
 
-export var mouse_sensitivity := 2.0
-export var y_limit := 90.0
+@export var mouse_sensitivity := 2.0
+@export var y_limit := 90.0
 var mouse_axis := Vector2()
 var rot := Vector3()
 
 var pickup = Pickups.NONE
 
 enum Pickups {
-	AMMO_BOX
+	AMMO_BOX,
 	NONE
 }
 
@@ -38,7 +38,7 @@ func _physics_process(delta) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_sensitivity = mouse_sensitivity / 1000
-	y_limit = deg2rad(y_limit)
+	y_limit = deg_to_rad(y_limit)
 
 # Called when there is an input event
 func _input(event: InputEvent) -> void:

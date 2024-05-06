@@ -3,10 +3,10 @@
 [ext_resource path="res://Player/MovementController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Head.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player/Sprint.gd" type="Script" id=3]
-[ext_resource path="res://Player/Crosshair.png" type="Texture" id=4]
+[ext_resource path="res://Player/Crosshair.png" type="Texture2D" id=4]
 [ext_resource path="res://Player/AmmoBox.gd" type="Script" id=5]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 
 [node name="Player" instance=ExtResource( 1 )]
 
@@ -16,18 +16,18 @@
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="." index="3"]
-margin_left = 500.0
-margin_top = 300.0
-margin_right = 516.0
-margin_bottom = 316.0
+offset_left = 500.0
+offset_top = 300.0
+offset_right = 516.0
+offset_bottom = 316.0
 texture = ExtResource( 4 )
 
-[node name="Pickups" type="Spatial" parent="." index="4"]
+[node name="Pickups" type="Node3D" parent="." index="4"]
 
-[node name="AmmoBox" type="Spatial" parent="Pickups" index="0" groups=["ammo_box"]]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.532881, 0.0890193, -1.41915 )
+[node name="AmmoBox" type="Node3D" parent="Pickups" index="0" groups=["ammo_box"]]
+transform = Transform3D( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.532881, 0.0890193, -1.41915 )
 visible = false
 script = ExtResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Pickups/AmmoBox" index="0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/AmmoBox" index="0"]
 mesh = SubResource( 1 )

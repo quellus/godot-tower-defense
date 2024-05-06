@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 const max_ammo: int = 50
 var ammo: int = 50
