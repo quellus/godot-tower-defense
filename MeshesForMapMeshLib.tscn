@@ -1,38 +1,38 @@
 [gd_scene load_steps=7 format=2]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 albedo_color = Color( 0.109804, 0.815686, 0.0862745, 1 )
 
-[sub_resource type="CubeMesh" id=11]
+[sub_resource type="BoxMesh" id=11]
 material = SubResource( 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="StandardMaterial3D" id=6]
 albedo_color = Color( 0.792157, 0.376471, 0.113725, 1 )
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="BoxMesh" id=12]
 material = SubResource( 6 )
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape3D" id=10]
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 
-[node name="Grass" type="MeshInstance" parent="."]
+[node name="Grass" type="MeshInstance3D" parent="."]
 mesh = SubResource( 11 )
-skeleton = NodePath("../Path")
+skeleton = NodePath("../Path3D")
 
-[node name="StaticBody" type="StaticBody" parent="Grass"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00745606, -0.0284681, 0.0136499 )
+[node name="StaticBody3D" type="StaticBody3D" parent="Grass"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00745606, -0.0284681, 0.0136499 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Grass/StaticBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grass/StaticBody3D"]
 shape = SubResource( 5 )
 
-[node name="Path" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56869, 0, 0 )
+[node name="Path3D" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56869, 0, 0 )
 mesh = SubResource( 12 )
 
-[node name="StaticBody" type="StaticBody" parent="Path"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Path3D"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Path/StaticBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/StaticBody3D"]
 shape = SubResource( 10 )
