@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://Main/Pickup.gd" id="4"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="5"]
 [ext_resource type="Script" path="res://Main/TowerFactory.gd" id="6"]
-[ext_resource type="PackedScene" path="res://Player/Player.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://Tower/Tower.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://by7tm2e1cqqyd" path="res://Player/Player.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/Tower.tscn" id="8"]
 [ext_resource type="Script" path="res://Ammo Stash.gd" id="9"]
 
 [sub_resource type="Curve3D" id="2"]
