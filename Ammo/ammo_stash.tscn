@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://che7ok55vwcfu"]
+
+[ext_resource type="Script" path="res://Ammo/Ammo Stash.gd" id="1_3ahjs"]
+
+[node name="Ammo Stash" type="Node3D" groups=["ammo_stash"]]
+script = ExtResource("1_3ahjs")

@@ -5,6 +5,8 @@ extends Node3D
 @onready var towers: Node3D = get_node("/root/L_Main/Towers")
 @onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
 
+var ammo_pickup = preload("res://Ammo/pickup.tscn")
+
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
 var mouse_axis := Vector2()
@@ -34,6 +36,18 @@ func _physics_process(delta) -> void:
 			var ammo_box = get_node("../Pickups/AmmoBox")
 			ammo_box.visible = true
 			pickup = Pickups.AMMO_BOX
+	elif pickup != Pickups.NONE && Input.is_action_just_pressed("drop_item"):
+		var ammo_box = get_node("../Pickups/AmmoBox")
+		ammo_box.visible = false
+		pickup = Pickups.NONE
+		var instance = ammo_pickup.instantiate()
+		get_tree().root.add_child(instance)
+		var player_position = global_position
+		instance.global_rotation = global_rotation
+		instance.global_position = global_position
+		print(global_rotation.y)
+		instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
+		instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
