@@ -1,14 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpwkh6b72etmf"]
+[gd_scene load_steps=12 format=3 uid="uid://dpwkh6b72etmf"]
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
 [ext_resource type="MeshLibrary" uid="uid://dyas6en7hlhfa" path="res://MapMeshLib.tres" id="3"]
-[ext_resource type="Script" path="res://Main/Pickup.gd" id="4"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="5"]
 [ext_resource type="Script" path="res://Main/TowerFactory.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://by7tm2e1cqqyd" path="res://Player/Player.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/Tower.tscn" id="8"]
-[ext_resource type="Script" path="res://Ammo Stash.gd" id="9"]
+[ext_resource type="PackedScene" uid="uid://duo2qlmmdi4qs" path="res://Ammo/pickup.tscn" id="8_lhs4h"]
+[ext_resource type="PackedScene" uid="uid://che7ok55vwcfu" path="res://Ammo/ammo_stash.tscn" id="9_dt1x8"]
 
 [sub_resource type="Curve3D" id="2"]
 bake_interval = 0.01
@@ -18,9 +18,8 @@ _data = {
 }
 point_count = 6
 
-[sub_resource type="BoxMesh" id="3"]
-
-[sub_resource type="BoxShape3D" id="4"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bkewn"]
+friction = 0.22
 
 [node name="L_Main" type="Node3D"]
 script = ExtResource("1")
@@ -71,20 +70,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 8)
 [node name="Tower2" parent="Towers" instance=ExtResource("8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
 
-[node name="Pickup" type="RigidBody3D" parent="." groups=["pickup"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 13.5627)
-collision_layer = 5
-script = ExtResource("4")
+[node name="Pickup" parent="." instance=ExtResource("8_lhs4h")]
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_bkewn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickup"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-mesh = SubResource("3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-shape = SubResource("4")
-
-[node name="Ammo Stash" type="Node3D" parent="." groups=["ammo_stash"]]
-script = ExtResource("9")
+[node name="Ammo Stash" parent="." instance=ExtResource("9_dt1x8")]
 
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]
