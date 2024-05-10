@@ -19,7 +19,7 @@ enum Pickups {
 	NONE
 }
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
 		var target = raycast.get_collider()
 		var target_parent: Node = target.get_parent()
@@ -31,21 +31,26 @@ func _physics_process(delta) -> void:
 			if ammo_box.get_ammo() <= 0:
 				pickup = Pickups.NONE
 				ammo_box.visible = false
-		elif pickup == Pickups.NONE and target.is_in_group("pickup"): # pickup interaction
-			target.queue_free()
-			var ammo_box = get_node("../Pickups/AmmoBox")
-			ammo_box.visible = true
-			pickup = Pickups.AMMO_BOX
+		elif pickup == Pickups.NONE:
+			if target.is_in_group("pickup"): # pickup interaction
+				target.queue_free()
+				var ammo_box = get_node("../Pickups/AmmoBox")
+				ammo_box.ammo = ammo_box.MAX_AMMO
+				ammo_box.visible = true
+				pickup = Pickups.AMMO_BOX
+			elif target.is_in_group("ammo_stash"):
+				var ammo_box = get_node("../Pickups/AmmoBox")
+				ammo_box.ammo = ammo_box.MAX_AMMO
+				ammo_box.visible = true
+				pickup = Pickups.AMMO_BOX
 	elif pickup != Pickups.NONE && Input.is_action_just_pressed("drop_item"):
 		var ammo_box = get_node("../Pickups/AmmoBox")
 		ammo_box.visible = false
 		pickup = Pickups.NONE
 		var instance = ammo_pickup.instantiate()
 		get_tree().root.add_child(instance)
-		var player_position = global_position
 		instance.global_rotation = global_rotation
 		instance.global_position = global_position
-		print(global_rotation.y)
 		instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
 		instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
 
