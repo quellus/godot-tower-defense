@@ -39,8 +39,11 @@ directional_shadow_max_distance = 250.0
 [node name="EnemySpawner" type="Node3D" parent="."]
 script = ExtResource("5")
 
-[node name="Timer" type="Timer" parent="EnemySpawner"]
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
 autostart = true
+
+[node name="WaveTimer" type="Timer" parent="EnemySpawner"]
+one_shot = true
 
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
@@ -70,4 +73,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53166, 1.64768, 13.7766)
 collision_layer = 5
 
-[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_Timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]
