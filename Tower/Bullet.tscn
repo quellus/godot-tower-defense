@@ -1,16 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://cvd2403x74dla"]
 
-[ext_resource path="res://Tower/Bullet.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Tower/Bullet.gd" id="1"]
 
-[sub_resource type="BoxMesh" id=2]
-size = Vector3( 0.05, 0.05, 20 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp186"]
+albedo_color = Color(1, 0.929412, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.721569, 0, 1)
+emission_energy_multiplier = 9.09
+
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("StandardMaterial3D_yp186")
+size = Vector3(0.05, 0.05, 20)
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.2146 )
-mesh = SubResource( 2 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.2146)
+mesh = SubResource("2")
 skeleton = NodePath("../..")
 
 [node name="Timer" type="Timer" parent="."]
