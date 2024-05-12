@@ -9,6 +9,7 @@ func _physics_process(_delta) -> void:
 	if progress < parent.curve.get_baked_length():
 		progress += movement_speed
 	else:
+		emit_signal("enemy_died")
 		queue_free()
 		
 func damage(_amount):
