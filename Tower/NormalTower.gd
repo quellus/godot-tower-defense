@@ -1,20 +1,4 @@
-class_name Tower extends CharacterBody3D
-
-@onready var enemies: Node3D = get_node("/root/L_Main/Path3D")
-@onready var raycast: RayCast3D = get_node("RayCast3D")
-@onready var bullet = load("res://Tower/Bullet.tscn")
-@onready var timer = get_node("Timer")
-@onready var audio_stream: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
-
-enum DamageType { normal, electric, aoe }
-
-var closestEnemy: Node = null
-var timerReady = true
-
-const max_ammo = 100
-var ammo = 50
-const ammo_cost_per_shot = 10
-
+extends Tower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,7 +17,7 @@ func _physics_process(_delta) -> void:
 					bulletInstance.global_transform = raycast.global_transform
 					get_node("/root/L_Main").add_child(bulletInstance)
 					timer.start()
-					enemy.damage(1)
+					enemy.damage(DamageType.normal, 1)
 					ammo -= ammo_cost_per_shot
 					audio_stream.play()
 

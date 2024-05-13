@@ -1,23 +1,11 @@
-class_name Tower extends CharacterBody3D
+extends Tower
 
-@onready var enemies: Node3D = get_node("/root/L_Main/Path3D")
-@onready var raycast: RayCast3D = get_node("RayCast3D")
-@onready var bullet = load("res://Tower/Bullet.tscn")
-@onready var timer = get_node("Timer")
-@onready var audio_stream: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
-
-enum DamageType { normal, electric, aoe }
-
-var closestEnemy: Node = null
-var timerReady = true
-
-const max_ammo = 100
-var ammo = 50
-const ammo_cost_per_shot = 10
-
+@onready var e_bullet_mat = load("res://Tower/ElectricBulletMaterial.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#var bullet_mat = bullet.get_node("MeshInstance3d").get_active_material() as StandardMaterial3D
+	#bullet_mat.albedo_color = Color(0,0,1,1)
 	pass # Replace with function body.
 
 func _physics_process(_delta) -> void:
@@ -32,8 +20,9 @@ func _physics_process(_delta) -> void:
 					var bulletInstance = bullet.instantiate()
 					bulletInstance.global_transform = raycast.global_transform
 					get_node("/root/L_Main").add_child(bulletInstance)
+					bulletInstance.get_node("MeshInstance3D").set_surface_override_material(0, e_bullet_mat)
 					timer.start()
-					enemy.damage(1)
+					enemy.damage(DamageType.electric, 1)
 					ammo -= ammo_cost_per_shot
 					audio_stream.play()
 

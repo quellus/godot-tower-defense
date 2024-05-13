@@ -17,3 +17,7 @@ collision_layer = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("1")
+
+[node name="DebuffTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DebuffTimer" to="." method="_on_debuff_timeout"]
