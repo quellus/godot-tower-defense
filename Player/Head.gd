@@ -16,33 +16,13 @@ var pickup = Pickups.NONE
 
 enum Pickups {
 	AMMO_BOX,
+	BATTERY,
 	NONE
 }
 
 func _physics_process(_delta) -> void:
 	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
-		var target = raycast.get_collider()
-		var target_parent: Node = target.get_parent()
-		if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
-			target_parent.damage(1)
-		elif target.is_in_group("tower") and target.has_method("add_ammo") and pickup == Pickups.AMMO_BOX: # tower interaction
-			var ammo_box = get_node("../Pickups/AmmoBox")
-			ammo_box.remove_ammo(ammo_box.get_ammo() - target.add_ammo(ammo_box.get_ammo()))
-			if ammo_box.get_ammo() <= 0:
-				pickup = Pickups.NONE
-				ammo_box.visible = false
-		elif pickup == Pickups.NONE:
-			if target.is_in_group("pickup"): # pickup interaction
-				target.queue_free()
-				var ammo_box = get_node("../Pickups/AmmoBox")
-				ammo_box.ammo = ammo_box.MAX_AMMO
-				ammo_box.visible = true
-				pickup = Pickups.AMMO_BOX
-			elif target.is_in_group("ammo_stash"):
-				var ammo_box = get_node("../Pickups/AmmoBox")
-				ammo_box.ammo = ammo_box.MAX_AMMO
-				ammo_box.visible = true
-				pickup = Pickups.AMMO_BOX
+		_interact()
 	elif pickup != Pickups.NONE && Input.is_action_just_pressed("drop_item"):
 		var ammo_box = get_node("../Pickups/AmmoBox")
 		ammo_box.visible = false
@@ -74,3 +54,42 @@ func camera_rotation() -> void:
 	
 	get_owner().rotation.y = rot.y
 	rotation.x = rot.x
+
+func _interact() -> void:
+	var target = raycast.get_collider()
+	var target_parent: Node = target.get_parent()
+	if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
+		target_parent.damage(1)
+	elif target.is_in_group("tower") and target.has_method("add_ammo"):
+		if target.damage_type == Tower.DamageType.normal and pickup == Pickups.AMMO_BOX: # normal tower
+			var ammo_box = get_node("../Pickups/AmmoBox")
+			ammo_box.remove_ammo(ammo_box.get_ammo() - target.add_ammo(ammo_box.get_ammo()))
+			if ammo_box.get_ammo() <= 0:
+				pickup = Pickups.NONE
+				ammo_box.visible = false
+		elif target.damage_type == Tower.DamageType.electric and target.has_method("has_battery"): # electric tower
+			if pickup == Pickups.BATTERY:
+				print(target.has_battery())
+				if !target.has_battery():
+					target.add_ammo(50)
+					pickup = Pickups.NONE
+					get_node("../Pickups/Battery").visible = false
+			elif pickup == Pickups.NONE:
+				if target.has_battery():
+					target.remove_battery()
+					pickup = Pickups.BATTERY
+					get_node("../Pickups/Battery").visible = true
+					pass
+	elif pickup == Pickups.NONE:
+		if target.is_in_group("pickup"): # pickup interaction
+			target.queue_free()
+			var ammo_box = get_node("../Pickups/AmmoBox")
+			ammo_box.ammo = ammo_box.MAX_AMMO
+			ammo_box.visible = true
+			pickup = Pickups.AMMO_BOX
+		elif target.is_in_group("ammo_stash"):
+			var ammo_box = get_node("../Pickups/AmmoBox")
+			ammo_box.ammo = ammo_box.MAX_AMMO
+			ammo_box.visible = true
+			pickup = Pickups.AMMO_BOX
+				

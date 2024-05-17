@@ -1,20 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://by87y0aclhlq6"]
+[gd_scene load_steps=10 format=3 uid="uid://by87y0aclhlq6"]
 
-[ext_resource type="Script" path="res://Tower/Tower.gd" id="1_25oqm"]
+[ext_resource type="Script" path="res://Tower/ElectricTower.gd" id="1_ntn8v"]
 [ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Tower.gltf" id="2_4tald"]
 [ext_resource type="PackedScene" path="res://ProgressBar/ProgressBar.tscn" id="3_gh5qs"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://soft-balloon-pop-88692.mp3" id="4_rgsop"]
+[ext_resource type="PackedScene" uid="uid://borxyoqpypnau" path="res://Tower/Electric Tower.glb" id="5_lsslj"]
+[ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Player/Battery Material.tres" id="6_hgdla"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605015
-height = 1.21003
+height = 2.19
 
 [sub_resource type="ViewportTexture" id="2"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="BoxMesh" id="BoxMesh_66yrs"]
+material = ExtResource("6_hgdla")
+
 [node name="Tower" type="CharacterBody3D" groups=["tower"]]
 collision_layer = 5
-script = ExtResource("1_25oqm")
+script = ExtResource("1_ntn8v")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54354, -0.738117)
@@ -22,9 +27,10 @@ target_position = Vector3(0, 0, -20)
 
 [node name="Mesh" parent="." instance=ExtResource("2_4tald")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.31586, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05451, 0)
 shape = SubResource("1")
 
 [node name="Timer" type="Timer" parent="."]
@@ -46,3 +52,10 @@ texture = SubResource("2")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_rgsop")
 volume_db = -15.238
+
+[node name="Electric Tower2" parent="." instance=ExtResource("5_lsslj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Battery" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.411436, 0, 0, 0, 0.411436, 0, 0, 0, 0.411436, 0, 0.49838, 0.521323)
+mesh = SubResource("BoxMesh_66yrs")

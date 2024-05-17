@@ -8,6 +8,7 @@ class_name Tower extends CharacterBody3D
 
 enum DamageType { normal, electric, aoe }
 
+var damage_type: DamageType
 var closestEnemy: Node = null
 var timerReady = true
 
