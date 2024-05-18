@@ -6,6 +6,7 @@ extends Node3D
 @onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
 
 var ammo_pickup = preload("res://Ammo/pickup.tscn")
+#var battery_pickup = preload("res://Ammo/battery_pickup.tscn")
 
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
@@ -24,15 +25,29 @@ func _physics_process(_delta) -> void:
 	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
 		_interact()
 	elif pickup != Pickups.NONE && Input.is_action_just_pressed("drop_item"):
-		var ammo_box = get_node("../Pickups/AmmoBox")
-		ammo_box.visible = false
-		pickup = Pickups.NONE
-		var instance = ammo_pickup.instantiate()
-		get_tree().root.add_child(instance)
-		instance.global_rotation = global_rotation
-		instance.global_position = global_position
-		instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
-		instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
+		match pickup:
+			Pickups.AMMO_BOX:
+				var ammo_box = get_node("../Pickups/AmmoBox")
+				ammo_box.visible = false
+				pickup = Pickups.NONE
+				var instance = ammo_pickup.instantiate()
+				get_tree().root.add_child(instance)
+				instance.global_rotation = global_rotation
+				instance.global_position = global_position
+				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
+				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
+			Pickups.BATTERY:
+				# TODO make this spawn a battery instead of ammo
+				#var battery = get_node("../Pickups/Battery")
+				#battery.visible = false
+				#pickup = Pickups.NONE
+				#var instance = ammo_pickup.instantiate()
+				#get_tree().root.add_child(instance)
+				#instance.global_rotation = global_rotation
+				#instance.global_position = global_position
+				#instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
+				#instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
+				pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
