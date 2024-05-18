@@ -69,17 +69,19 @@ func _interact() -> void:
 				ammo_box.visible = false
 		elif target.damage_type == Tower.DamageType.electric and target.has_method("has_battery"): # electric tower
 			if pickup == Pickups.BATTERY:
+				var battery = get_node("../Pickups/Battery")
 				print(target.has_battery())
 				if !target.has_battery():
-					target.add_ammo(50)
+					target.add_ammo(battery.get_ammo())
 					pickup = Pickups.NONE
-					get_node("../Pickups/Battery").visible = false
+					battery.visible = false
 			elif pickup == Pickups.NONE:
 				if target.has_battery():
+					var battery = get_node("../Pickups/Battery")
+					battery.set_ammo(target.ammo)
 					target.remove_battery()
 					pickup = Pickups.BATTERY
-					get_node("../Pickups/Battery").visible = true
-					pass
+					battery.visible = true
 	elif pickup == Pickups.NONE:
 		if target.is_in_group("pickup"): # pickup interaction
 			target.queue_free()
@@ -92,4 +94,4 @@ func _interact() -> void:
 			ammo_box.ammo = ammo_box.MAX_AMMO
 			ammo_box.visible = true
 			pickup = Pickups.AMMO_BOX
-				
+

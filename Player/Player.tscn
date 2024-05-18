@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://Player/Sprint.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cdrgca8a0i0vw" path="res://Player/Crosshair.png" id="4"]
 [ext_resource type="Script" path="res://Player/AmmoBox.gd" id="5"]
-[ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Player/Ammo Box Material.tres" id="6_ur7yq"]
-[ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Player/Battery Material.tres" id="7_0n527"]
+[ext_resource type="Material" path="res://Player/Ammo Box Material.tres" id="6_ur7yq"]
+[ext_resource type="Material" path="res://Player/Battery Material.tres" id="7_0n527"]
 
 [sub_resource type="BoxMesh" id="1"]
 material = ExtResource("6_ur7yq")
