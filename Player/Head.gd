@@ -6,7 +6,7 @@ extends Node3D
 @onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
 @onready var pickups: Pickups = get_node("../Pickups")
 
-var ammo_pickup = preload("res://Ammo/pickup.tscn")
+var ammo_pickup = preload("res://Ammo/ammo_box.tscn")
 var battery_pickup = preload("res://Ammo/battery.tscn")
 
 @export var mouse_sensitivity := 2.0
@@ -24,14 +24,17 @@ func _physics_process(_delta) -> void:
 			Pickups.Pickup.AMMO_BOX:
 				pickups.remove_ammo()
 				var instance = ammo_pickup.instantiate()
+				instance.type = Pickups.Pickup.AMMO_BOX
 				get_tree().root.add_child(instance)
 				instance.global_rotation = global_rotation
 				instance.global_position = global_position
 				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
 				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
 			Pickups.Pickup.BATTERY:
-				pickups.remove_battery()
+				var ammo = pickups.remove_battery()
 				var instance = battery_pickup.instantiate()
+				instance.type = Pickups.Pickup.BATTERY
+				instance.set_ammo(ammo)
 				get_tree().root.add_child(instance)
 				instance.global_rotation = global_rotation
 				instance.global_position = global_position
@@ -67,7 +70,7 @@ func _interact() -> void:
 	var target = raycast.get_collider()
 	var target_parent: Node = target.get_parent()
 	if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
-		target_parent.damage(1)
+		target_parent.damage(Tower.DamageType.normal, 1)
 	elif target.is_in_group("tower") and target.has_method("add_ammo"):
 		var pickup = pickups.pickup
 		if target.damage_type == Tower.DamageType.normal and pickup == pickups.Pickup.AMMO_BOX: # normal tower
@@ -85,10 +88,20 @@ func _interact() -> void:
 				if target.has_battery():
 					pickups.pickup_battery(target.ammo)
 					target.remove_battery()
+	elif pickups.pickup == Pickups.Pickup.BATTERY:
+		if target.is_in_group("charger"):
+			var ammo = pickups.remove_battery()
+			target.add_battery(ammo)
 	elif pickups.pickup == pickups.Pickup.NONE:
 		var ammo_box = get_node("../Pickups/AmmoBox")
 		if target.is_in_group("pickup"): # pickup interaction
+			if target.type == Pickups.Pickup.BATTERY:
+				pickups.pickup_battery(target.get_ammo())
+			elif target.type == Pickups.Pickup.AMMO_BOX:
+				pickups.pickup_ammo(target.get_ammo())
 			target.queue_free()
-			pickups.pickup_ammo(ammo_box.MAX_AMMO)
 		elif target.is_in_group("ammo_stash"):
 			pickups.pickup_ammo(ammo_box.MAX_AMMO)
+		elif target.is_in_group("charger"):
+			var ammo = target.remove_battery()
+			pickups.pickup_battery(ammo)

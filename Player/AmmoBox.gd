@@ -1,5 +1,7 @@
 extends Node3D
 
+var type: Pickups.Pickup = Pickups.Pickup.NONE
+
 const MAX_AMMO: int = 50
 var ammo: int = 50
 

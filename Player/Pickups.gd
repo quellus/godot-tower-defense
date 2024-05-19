@@ -33,11 +33,13 @@ func pickup_ammo(amount: int) -> void:
 	pickup = Pickup.AMMO_BOX
 
 
-func remove_battery() -> void:
+func remove_battery() -> int:
 	battery.visible = false
 	pickup = Pickup.NONE
+	return battery.get_ammo()
 
 
-func remove_ammo() -> void:
+func remove_ammo() -> int:
 	ammo_box.visible = false
 	pickup = Pickup.NONE
+	return ammo_box.get_ammo()
