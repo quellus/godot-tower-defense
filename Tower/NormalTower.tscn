@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Tower.gltf" id="1"]
 [ext_resource type="Script" path="res://Tower/Tower.gd" id="2"]
 [ext_resource type="PackedScene" path="res://ProgressBar/ProgressBar.tscn" id="3"]
-[ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://soft-balloon-pop-88692.mp3" id="4"]
+[ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605
