@@ -1,27 +1,36 @@
-# First Person Starter ![Godot 3.5](https://img.shields.io/badge/godot-v3.5-%23478cbf)
-![Screenshot of FirstPersonStarter Template](https://i.imgur.com/gFDpPlj.png)
+Created using [First Person Starter template](https://github.com/Whimfoome/godot-FirstPersonStarter)
 
-FPS template for Godot to give starter content for a new or already existing project!
+# Godot Tower Defense (Name subject to change)
 
-#### Includes:
-- 3D Character Controller
-  - Smooth Movement (Acceleration and Deceleration)
-  - Smooth Camera Rotation
-  - Handles Slopes
-  - Optional Sprinting
-  - Air Control
-  - Highly Modular
-  - Easily Adjustable from the Inspector
-- Example 3D Scene
+This game aims to marry all the best parts of challenging and caotic couch co-op games with tower defense games.
 
-#### Project Controls:
-- Move with `W` `A` `S` `D` or `↑` `←` `↓` `→`
-- Jump with `Space`. Sprint with `Shift`
-- Unlock/Lock Mouse with `Shift + F1`
-- Close Game with `Esc`
-- *If you haven't imported the whole project, you should add them manually!*
+### Core gameplay
 
-#### Credits:
-- Grid Texture/s from [KenneyNL](https://www.kenney.nl/assets/prototype-textures)
-- To create this project I watched [Jeremy Bullock's Godot First Person Controller Series](https://www.youtube.com/watch?v=Etpq-d5af6M&list=PLTZoMpB5Z4aD-rCpluXsQjkGYgUGUZNIV)
-- Thanks to the awesome Godot community for being helpful to anyone with problems, for making amazing tutorials, for writing the documentation and being supportive.
+Players must work as a team to manufacture ammunition and keep their towers running and able to defend against waves of enemies.
+
+##### Towers
+
+ - Normal Type
+ The normal tower requires players to assemble the ammo and fill a magazine before delivering it to the tower
+
+ - Electric tower
+ The electric tower uses electricity to slow down enemies. It runs on batteries, and the player must keep the battery charged by removing it and placing it on a charger. Be careful not to overcharge the battery, though. It can have disastrous effects!
+
+ - AOE Tower
+ The AOE tower delivers damage to all enemies in an area around its target. It has big and heavy ammunition. Players move slowly while transporting it.
+
+##### Enemies
+
+ - Normal type
+ Normal enemies have no particular strengths or weaknesses they are susceptible to damage by normal towers, slowing by the electric towers, and explosions from the AOE towers.
+
+ - Fast type
+ Fast enemies move very quickly, but are weak against the electric type tower being slowed very dramatically by them. They're resistant to explosions from the AOE tower and have low health
+
+ - Slow type
+ Slow enemies move very slowly, but are weak to the AOE tower. They're resistant to slowing from the electric tower and have a high health.
+
+### Building
+
+This game is created with Godot 4.2
+Simply download Godot, import the project, and run it.
