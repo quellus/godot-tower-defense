@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ct0mywnfr4688"]
 
 [ext_resource type="Script" path="res://Charger/Charger.gd" id="1_lrkvq"]
-[ext_resource type="Script" path="res://Player/AmmoBox.gd" id="2_thhad"]
+[ext_resource type="Script" path="res://Common/AmmoContainer.gd" id="2_thhad"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_un2t1"]
 albedo_color = Color(0, 0.568627, 1, 1)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
-[ext_resource type="MeshLibrary" uid="uid://dyas6en7hlhfa" path="res://MapMeshLib.tres" id="3"]
+[ext_resource type="MeshLibrary" uid="uid://dyas6en7hlhfa" path="res://Main/MapMeshLib.tres" id="3"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://by7tm2e1cqqyd" path="res://Player/Player.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/NormalTower.tscn" id="8"]
