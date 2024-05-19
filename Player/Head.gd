@@ -4,55 +4,46 @@ extends Node3D
 @onready var raycast: RayCast3D = get_node(NodePath("RayCast3D"))
 @onready var towers: Node3D = get_node("/root/L_Main/Towers")
 @onready var gridmap: GridMap = get_node("/root/L_Main/GridMap")
+@onready var pickups: Pickups = get_node("../Pickups")
 
 var ammo_pickup = preload("res://Ammo/pickup.tscn")
-#var battery_pickup = preload("res://Ammo/battery_pickup.tscn")
+var battery_pickup = preload("res://Ammo/battery.tscn")
 
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
 var mouse_axis := Vector2()
 var rot := Vector3()
 
-var pickup = Pickups.NONE
-
-enum Pickups {
-	AMMO_BOX,
-	BATTERY,
-	NONE
-}
 
 func _physics_process(_delta) -> void:
+	var pickup = pickups.pickup
 	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
 		_interact()
-	elif pickup != Pickups.NONE && Input.is_action_just_pressed("drop_item"):
+	elif pickup != Pickups.Pickup.NONE && Input.is_action_just_pressed("drop_item"):
 		match pickup:
-			Pickups.AMMO_BOX:
-				var ammo_box = get_node("../Pickups/AmmoBox")
-				ammo_box.visible = false
-				pickup = Pickups.NONE
+			Pickups.Pickup.AMMO_BOX:
+				pickups.remove_ammo()
 				var instance = ammo_pickup.instantiate()
 				get_tree().root.add_child(instance)
 				instance.global_rotation = global_rotation
 				instance.global_position = global_position
 				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
 				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
-			Pickups.BATTERY:
-				# TODO make this spawn a battery instead of ammo
-				#var battery = get_node("../Pickups/Battery")
-				#battery.visible = false
-				#pickup = Pickups.NONE
-				#var instance = ammo_pickup.instantiate()
-				#get_tree().root.add_child(instance)
-				#instance.global_rotation = global_rotation
-				#instance.global_position = global_position
-				#instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
-				#instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
-				pass
+			Pickups.Pickup.BATTERY:
+				pickups.remove_battery()
+				var instance = battery_pickup.instantiate()
+				get_tree().root.add_child(instance)
+				instance.global_rotation = global_rotation
+				instance.global_position = global_position
+				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
+				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_sensitivity = mouse_sensitivity / 1000
 	y_limit = deg_to_rad(y_limit)
+
 
 # Called when there is an input event
 func _input(event: InputEvent) -> void:
@@ -60,6 +51,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		mouse_axis = event.relative
 		camera_rotation()
+
 
 func camera_rotation() -> void:
 	# Horizontal mouse look.
@@ -70,43 +62,33 @@ func camera_rotation() -> void:
 	get_owner().rotation.y = rot.y
 	rotation.x = rot.x
 
+
 func _interact() -> void:
 	var target = raycast.get_collider()
 	var target_parent: Node = target.get_parent()
 	if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
 		target_parent.damage(1)
 	elif target.is_in_group("tower") and target.has_method("add_ammo"):
-		if target.damage_type == Tower.DamageType.normal and pickup == Pickups.AMMO_BOX: # normal tower
+		var pickup = pickups.pickup
+		if target.damage_type == Tower.DamageType.normal and pickup == pickups.Pickup.AMMO_BOX: # normal tower
 			var ammo_box = get_node("../Pickups/AmmoBox")
 			ammo_box.remove_ammo(ammo_box.get_ammo() - target.add_ammo(ammo_box.get_ammo()))
 			if ammo_box.get_ammo() <= 0:
-				pickup = Pickups.NONE
-				ammo_box.visible = false
+				pickups.remove_ammo()
 		elif target.damage_type == Tower.DamageType.electric and target.has_method("has_battery"): # electric tower
-			if pickup == Pickups.BATTERY:
+			if pickup == pickups.Pickup.BATTERY:
 				var battery = get_node("../Pickups/Battery")
-				print(target.has_battery())
 				if !target.has_battery():
 					target.add_ammo(battery.get_ammo())
-					pickup = Pickups.NONE
-					battery.visible = false
-			elif pickup == Pickups.NONE:
+					pickups.remove_battery()
+			elif pickup == pickups.Pickup.NONE:
 				if target.has_battery():
-					var battery = get_node("../Pickups/Battery")
-					battery.set_ammo(target.ammo)
+					pickups.pickup_battery(target.ammo)
 					target.remove_battery()
-					pickup = Pickups.BATTERY
-					battery.visible = true
-	elif pickup == Pickups.NONE:
+	elif pickups.pickup == pickups.Pickup.NONE:
+		var ammo_box = get_node("../Pickups/AmmoBox")
 		if target.is_in_group("pickup"): # pickup interaction
 			target.queue_free()
-			var ammo_box = get_node("../Pickups/AmmoBox")
-			ammo_box.ammo = ammo_box.MAX_AMMO
-			ammo_box.visible = true
-			pickup = Pickups.AMMO_BOX
+			pickups.pickup_ammo(ammo_box.MAX_AMMO)
 		elif target.is_in_group("ammo_stash"):
-			var ammo_box = get_node("../Pickups/AmmoBox")
-			ammo_box.ammo = ammo_box.MAX_AMMO
-			ammo_box.visible = true
-			pickup = Pickups.AMMO_BOX
-
+			pickups.pickup_ammo(ammo_box.MAX_AMMO)
