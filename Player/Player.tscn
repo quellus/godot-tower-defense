@@ -1,12 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://by7tm2e1cqqyd"]
+[gd_scene load_steps=11 format=3 uid="uid://by7tm2e1cqqyd"]
 
 [ext_resource type="PackedScene" path="res://Player/MovementController.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://c4rbhyw00cuk1" path="res://Player/Head.tscn" id="2"]
 [ext_resource type="Script" path="res://Player/Sprint.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cdrgca8a0i0vw" path="res://Player/Crosshair.png" id="4"]
 [ext_resource type="Script" path="res://Player/AmmoBox.gd" id="5"]
+[ext_resource type="Script" path="res://Player/Pickups.gd" id="5_1b3nt"]
+[ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Player/Ammo Box Material.tres" id="6_ur7yq"]
+[ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Player/Battery Material.tres" id="7_0n527"]
 
 [sub_resource type="BoxMesh" id="1"]
+material = ExtResource("6_ur7yq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_g54aa"]
+material = ExtResource("7_0n527")
 
 [node name="Player" instance=ExtResource("1")]
 
@@ -23,6 +30,7 @@ offset_bottom = 340.0
 texture = ExtResource("4")
 
 [node name="Pickups" type="Node3D" parent="." index="4"]
+script = ExtResource("5_1b3nt")
 
 [node name="AmmoBox" type="Node3D" parent="Pickups" index="0" groups=["ammo_box"]]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.532881, 0.0890193, -1.41915)
@@ -31,3 +39,11 @@ script = ExtResource("5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/AmmoBox" index="0"]
 mesh = SubResource("1")
+
+[node name="Battery" type="Node3D" parent="Pickups" index="1" groups=["ammo_box"]]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.532881, 0.0890193, -1.41915)
+visible = false
+script = ExtResource("5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/Battery" index="0"]
+mesh = SubResource("BoxMesh_g54aa")

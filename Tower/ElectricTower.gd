@@ -2,11 +2,15 @@ extends Tower
 
 @onready var e_bullet_mat = load("res://Tower/ElectricBulletMaterial.tres")
 
+var battery = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#var bullet_mat = bullet.get_node("MeshInstance3d").get_active_material() as StandardMaterial3D
 	#bullet_mat.albedo_color = Color(0,0,1,1)
+	damage_type = DamageType.electric
 	pass # Replace with function body.
+
 
 func _physics_process(_delta) -> void:
 	closestEnemy = get_closest(enemies.get_children(), global_position)
@@ -31,6 +35,7 @@ func _physics_process(_delta) -> void:
 		
 	$SubViewport/ProgressBar.value = ammo
 
+
 func get_closest(nodeList: Array, location: Vector3) -> Node:
 	if nodeList.size() > 0:
 		var closestNode = nodeList[0]
@@ -43,7 +48,26 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 		return closestNode
 	return null
 
+
+func has_battery() -> bool:
+	return battery
+
+
+func remove_battery() -> int:
+	if has_battery():
+		var bat_ammo = ammo
+		ammo = 0
+		battery = false
+		get_node("Battery").visible = false
+		return bat_ammo
+	return 0
+
+
 func add_ammo(amount) -> int:
+	print(battery)
+	if !battery:
+		battery = true
+		get_node("Battery").visible = true
 	if (ammo < max_ammo):
 		var empty = max_ammo - ammo
 		var add = 0

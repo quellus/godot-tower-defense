@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct0mywnfr4688"]
+
+[ext_resource type="Script" path="res://Charger/Charger.gd" id="1_lrkvq"]
+[ext_resource type="Script" path="res://Player/AmmoBox.gd" id="2_thhad"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_un2t1"]
+albedo_color = Color(0, 0.568627, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e0gbb"]
+material = SubResource("StandardMaterial3D_un2t1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21ouv"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j1gbh"]
+material = SubResource("StandardMaterial3D_21ouv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1cmxw"]
+
+[node name="Charger" type="StaticBody3D" groups=["charger"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29284, 1.47531, 35.3304)
+collision_layer = 5
+script = ExtResource("1_lrkvq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.980429, 0, 0, 0, 0.980429, 0, 0, 0, 0.980429, 0, -0.00802946, 0)
+mesh = SubResource("BoxMesh_e0gbb")
+
+[node name="Battery" type="Node3D" parent="."]
+transform = Transform3D(0.980429, 0, 0, 0, 0.980429, 0, 0, 0, 0.980429, 0, 0.709512, 0)
+visible = false
+script = ExtResource("2_thhad")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Battery"]
+transform = Transform3D(0.481818, 0, 0, 0, 0.481818, 0, 0, 0, 0.481818, 0, 0, 0)
+mesh = SubResource("BoxMesh_j1gbh")
+skeleton = NodePath("../../MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1cmxw")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

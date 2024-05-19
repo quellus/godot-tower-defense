@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://duo2qlmmdi4qs"]
+[gd_scene load_steps=5 format=3 uid="uid://boy4jn028mb7r"]
 
-[ext_resource type="Script" path="res://Main/Pickup.gd" id="1_m7m4f"]
+[ext_resource type="Script" path="res://Player/AmmoBox.gd" id="1_o7vmu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2clp"]
+albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="3"]
+material = SubResource("StandardMaterial3D_j2clp")
 
 [sub_resource type="BoxShape3D" id="4"]
 
-[node name="Pickup" type="RigidBody3D" groups=["pickup"]]
+[node name="Battery" type="RigidBody3D" groups=["pickup"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 13.5627)
 collision_layer = 5
-script = ExtResource("1_m7m4f")
+script = ExtResource("1_o7vmu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

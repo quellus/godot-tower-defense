@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Tower/NormalTower.gd" id="8_bx6lv"]
 [ext_resource type="PackedScene" uid="uid://che7ok55vwcfu" path="res://Ammo/ammo_stash.tscn" id="9_dt1x8"]
 [ext_resource type="PackedScene" uid="uid://by87y0aclhlq6" path="res://Tower/ElectricTower.tscn" id="9_l6spa"]
-[ext_resource type="Script" path="res://Tower/ElectricTower.gd" id="10_ekww4"]
+[ext_resource type="PackedScene" uid="uid://ct0mywnfr4688" path="res://Charger/charger.tscn" id="10_evqaj"]
 
 [sub_resource type="Curve3D" id="2"]
 bake_interval = 0.01
@@ -71,11 +71,12 @@ script = ExtResource("8_bx6lv")
 
 [node name="Tower4" parent="Towers" instance=ExtResource("9_l6spa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 21)
-script = ExtResource("10_ekww4")
 
 [node name="Ammo Stash" parent="." instance=ExtResource("9_dt1x8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53166, 1.64768, 13.7766)
 collision_layer = 5
+
+[node name="Charger" parent="." instance=ExtResource("10_evqaj")]
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]
