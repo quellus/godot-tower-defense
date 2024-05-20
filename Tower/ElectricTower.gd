@@ -11,8 +11,7 @@ func _ready():
 	max_ammo = 50
 	ammo = 50
 	ammo_cost_per_shot = 10
-	$SubViewport/ProgressBar.max_value = max_ammo
-	$SubViewport/ProgressBar.value = ammo
+	on_ready()
 
 
 func _physics_process(_delta) -> void:
