@@ -6,10 +6,13 @@ var battery = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#var bullet_mat = bullet.get_node("MeshInstance3d").get_active_material() as StandardMaterial3D
-	#bullet_mat.albedo_color = Color(0,0,1,1)
 	damage_type = DamageType.electric
-	pass # Replace with function body.
+	firerate = 2
+	max_ammo = 50
+	ammo = 50
+	ammo_cost_per_shot = 10
+	$SubViewport/ProgressBar.max_value = max_ammo
+	$SubViewport/ProgressBar.value = ammo
 
 
 func _physics_process(_delta) -> void:
@@ -25,8 +28,8 @@ func _physics_process(_delta) -> void:
 					bulletInstance.global_transform = raycast.global_transform
 					get_node("/root/L_Main").add_child(bulletInstance)
 					bulletInstance.get_node("MeshInstance3D").set_surface_override_material(0, e_bullet_mat)
-					timer.start()
-					enemy.damage(DamageType.electric, 1)
+					timer.start(firerate)
+					enemy.damage(DamageType.electric, 0)
 					ammo -= ammo_cost_per_shot
 					audio_stream.play()
 
@@ -34,19 +37,6 @@ func _physics_process(_delta) -> void:
 		look_at(enemyLocation, Vector3.UP)
 		
 	$SubViewport/ProgressBar.value = ammo
-
-
-func get_closest(nodeList: Array, location: Vector3) -> Node:
-	if nodeList.size() > 0:
-		var closestNode = nodeList[0]
-		var closestDist = location.distance_to(closestNode.global_position)
-		for node in nodeList:
-			var dist = location.distance_to(node.global_position)
-			if dist < closestDist:
-				closestNode = node
-				closestDist = dist
-		return closestNode
-	return null
 
 
 func has_battery() -> bool:
@@ -64,7 +54,6 @@ func remove_battery() -> int:
 
 
 func add_ammo(amount) -> int:
-	print(battery)
 	if !battery:
 		battery = true
 		get_node("Battery").visible = true
@@ -74,7 +63,7 @@ func add_ammo(amount) -> int:
 		if empty > amount:
 			add = amount
 		else:
-			add = amount - empty
+			add = empty
 		ammo += add
 		return add
 	return 0
