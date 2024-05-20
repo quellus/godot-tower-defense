@@ -25,12 +25,15 @@ func _physics_process(_delta) -> void:
 
 
 func add_battery(amount) -> void:
-	has_battery = true
-	battery.visible = true
-	battery.set_ammo(amount)
+	if not has_battery:
+		has_battery = true
+		battery.visible = true
+		battery.set_ammo(amount)
 	
 	
 func remove_battery() -> int:
-	has_battery = false
-	battery.visible = false
-	return battery.get_ammo()
+	if has_battery:
+		has_battery = false
+		battery.visible = false
+		return battery.get_ammo()
+	return 0
