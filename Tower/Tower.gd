@@ -16,6 +16,9 @@ var ammo = 50
 var ammo_cost_per_shot = 10
 var firerate = 1
 
+func on_ready():
+	$SubViewport/ProgressBar.max_value = max_ammo
+	$SubViewport/ProgressBar.value = ammo
 
 func get_closest(nodeList: Array, location: Vector3) -> Node:
 	if nodeList.size() > 0:
