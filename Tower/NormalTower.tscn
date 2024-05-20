@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://r56l74detg3l"]
 
 [ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Tower.gltf" id="1"]
-[ext_resource type="Script" path="res://Tower/Tower.gd" id="2"]
-[ext_resource type="PackedScene" path="res://ProgressBar/ProgressBar.tscn" id="3"]
+[ext_resource type="Script" path="res://Tower/NormalTower.gd" id="1_7ib2o"]
+[ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
@@ -12,9 +12,9 @@ height = 2.5
 [sub_resource type="ViewportTexture" id="2"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Tower" type="CharacterBody3D" groups=["tower"]]
+[node name="Normal Tower" type="CharacterBody3D" groups=["tower"]]
 collision_layer = 5
-script = ExtResource("2")
+script = ExtResource("1_7ib2o")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54354, -0.738117)
@@ -36,7 +36,6 @@ transparent_bg = true
 size = Vector2i(500, 500)
 
 [node name="ProgressBar" parent="SubViewport" instance=ExtResource("3")]
-anchors_preset = 8
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.50012, 0)
