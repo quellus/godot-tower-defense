@@ -3,11 +3,12 @@ class_name MovementController
 
 
 @export var gravity_multiplier := 3.0
-@export var speed := 10
 @export var acceleration := 8
 @export var deceleration := 10
 @export var air_control := 0.3 # (float, 0.0, 1.0, 0.05)
 @export var jump_height := 10
+@export var speed := 10
+var speed_multiplier := 1.0
 var direction := Vector3()
 var input_axis := Vector2()
 var snap := Vector3()
@@ -69,7 +70,7 @@ func accelerate(delta: float) -> void:
 	temp_vel.y = 0
 	
 	var temp_accel: float
-	var target: Vector3 = direction * speed
+	var target: Vector3 = direction * speed * speed_multiplier
 	
 	if direction.dot(temp_vel) > 0:
 		temp_accel = acceleration
@@ -83,3 +84,12 @@ func accelerate(delta: float) -> void:
 	
 	velocity.x = temp_vel.x
 	velocity.z = temp_vel.z
+
+
+func _on_pickups_picked_up_rocket_bundle():
+	print("picked up rocket bundle")
+	speed_multiplier = 0.5
+
+
+func _on_pickups_dropped_rocket_bundle():
+	speed_multiplier = 1.0

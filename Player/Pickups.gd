@@ -4,6 +4,9 @@ class_name Pickups extends Node3D
 @onready var battery: Node3D = get_node("Battery")
 @onready var rocket_bundle: Node3D = get_node("RocketBundle")
 
+signal picked_up_rocket_bundle
+signal dropped_rocket_bundle
+
 var pickup = Pickup.NONE
 
 enum Pickup {
@@ -32,6 +35,7 @@ func pickup_ammo(amount: int) -> void:
 
 
 func pickup_rocket_bundle(amount: int) -> void:
+	picked_up_rocket_bundle.emit()
 	_pickup_item(rocket_bundle, amount, Pickup.ROCKET_BUNDLE)
 
 
@@ -44,6 +48,7 @@ func remove_ammo() -> int:
 
 
 func remove_rocket_bundle() -> int:
+	dropped_rocket_bundle.emit()
 	return _remove_pickup(rocket_bundle)
 
 

@@ -59,3 +59,6 @@ script = ExtResource("5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/RocketBundle" index="0"]
 mesh = SubResource("BoxMesh_h7wsc")
+
+[connection signal="dropped_rocket_bundle" from="Pickups" to="." method="_on_pickups_dropped_rocket_bundle"]
+[connection signal="picked_up_rocket_bundle" from="Pickups" to="." method="_on_pickups_picked_up_rocket_bundle"]
