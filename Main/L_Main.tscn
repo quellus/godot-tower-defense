@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpwkh6b72etmf"]
+[gd_scene load_steps=14 format=3 uid="uid://dpwkh6b72etmf"]
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://by87y0aclhlq6" path="res://Tower/Electric/ElectricTower.tscn" id="9_l6spa"]
 [ext_resource type="PackedScene" uid="uid://boy4jn028mb7r" path="res://Ammo/battery.tscn" id="10_1ldqo"]
 [ext_resource type="PackedScene" uid="uid://ct0mywnfr4688" path="res://Charger/charger.tscn" id="10_evqaj"]
+[ext_resource type="PackedScene" uid="uid://ceybqfnv5yd8b" path="res://Ammo/RocketStash.tscn" id="12_5tdxu"]
 
 [sub_resource type="Curve3D" id="2"]
 bake_interval = 0.01
@@ -74,12 +75,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
 [node name="Ammo Stash" parent="." instance=ExtResource("9_dt1x8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53166, 1.64768, 13.7766)
 collision_layer = 5
+script = null
 
 [node name="Charger" parent="." instance=ExtResource("10_evqaj")]
 
 [node name="Battery" parent="." instance=ExtResource("10_1ldqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 21.8025)
 type = 1
+
+[node name="RocketStash" parent="." instance=ExtResource("12_5tdxu")]
+script = null
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]

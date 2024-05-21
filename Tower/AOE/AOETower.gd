@@ -1,6 +1,7 @@
 extends Tower
 
 @onready var rocket = load("res://Tower/AOE/Rocket.tscn")
+@onready var rocketSpawn = get_node("RocketSpawnPoint")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,10 +25,8 @@ func _physics_process(_delta) -> void:
 					var rocket_instance = rocket.instantiate()
 					rocket_instance.target = enemy
 					get_tree().root.add_child(rocket_instance)
-					rocket_instance.rotation = global_rotation
-					rocket_instance.start_pos = global_position
-					rocket_instance.start_pos += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
-					rocket_instance.start_pos.y += 1
+					rocket_instance.start_pos = rocketSpawn.global_position
+					rocket_instance.start()
 					timer.start(firerate)
 					ammo -= ammo_cost_per_shot
 					#audio_stream.play()

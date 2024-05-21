@@ -45,3 +45,6 @@ texture = SubResource("2")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_6vl32")
 volume_db = -15.238
+
+[node name="RocketSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89531, -0.324212)
