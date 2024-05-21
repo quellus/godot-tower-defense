@@ -15,7 +15,7 @@ func _ready():
 
 
 func _physics_process(_delta) -> void:
-	closestEnemy = get_closest(enemies.get_children(), global_position)
+	closestEnemy = Global.get_closest(enemies.get_children(), global_position)
 	if closestEnemy:
 		var enemyLocation = closestEnemy.global_position
 		raycast.look_at(enemyLocation, Vector3.UP)

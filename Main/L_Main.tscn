@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpwkh6b72etmf"]
+[gd_scene load_steps=13 format=3 uid="uid://dpwkh6b72etmf"]
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
 [ext_resource type="MeshLibrary" uid="uid://ws1hbolc446l" path="res://Main/MapMeshLib.tres" id="3"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://by7tm2e1cqqyd" path="res://Player/Player.tscn" id="7"]
-[ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/NormalTower.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/Normal/NormalTower.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://bvdiywf0u7wl6" path="res://Tower/AOE/AOETower.tscn" id="8_857ih"]
 [ext_resource type="PackedScene" uid="uid://che7ok55vwcfu" path="res://Ammo/ammo_stash.tscn" id="9_dt1x8"]
-[ext_resource type="PackedScene" uid="uid://by87y0aclhlq6" path="res://Tower/ElectricTower.tscn" id="9_l6spa"]
+[ext_resource type="PackedScene" uid="uid://by87y0aclhlq6" path="res://Tower/Electric/ElectricTower.tscn" id="9_l6spa"]
 [ext_resource type="PackedScene" uid="uid://boy4jn028mb7r" path="res://Ammo/battery.tscn" id="10_1ldqo"]
 [ext_resource type="PackedScene" uid="uid://ct0mywnfr4688" path="res://Charger/charger.tscn" id="10_evqaj"]
 
@@ -64,11 +65,11 @@ curve = SubResource("2")
 [node name="Tower" parent="Towers" instance=ExtResource("8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 8)
 
-[node name="Tower2" parent="Towers" instance=ExtResource("8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
-
 [node name="Tower4" parent="Towers" instance=ExtResource("9_l6spa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 21)
+
+[node name="AOE Tower" parent="Towers" instance=ExtResource("8_857ih")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
 
 [node name="Ammo Stash" parent="." instance=ExtResource("9_dt1x8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53166, 1.64768, 13.7766)

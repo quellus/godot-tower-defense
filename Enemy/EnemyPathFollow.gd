@@ -1,4 +1,4 @@
-extends PathFollow3D
+class_name Enemy extends PathFollow3D
 
 signal enemy_died
 

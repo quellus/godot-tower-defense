@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://borxyoqpypnau"
-path="res://.godot/imported/Electric Tower.glb-c8e1d1aff3ae8a74b7fc0c62f62b6e82.scn"
+path="res://.godot/imported/Electric Tower.glb-7e66265ab7bd02694e4ef6466052d67d.scn"
 
 [deps]
 
-source_file="res://Tower/Electric Tower.glb"
-dest_files=["res://.godot/imported/Electric Tower.glb-c8e1d1aff3ae8a74b7fc0c62f62b6e82.scn"]
+source_file="res://Tower/Electric/Electric Tower.glb"
+dest_files=["res://.godot/imported/Electric Tower.glb-7e66265ab7bd02694e4ef6466052d67d.scn"]
 
 [params]
 

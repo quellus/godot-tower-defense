@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cvd2403x74dla"]
 
-[ext_resource type="Script" path="res://Tower/Bullet.gd" id="1"]
-[ext_resource type="Material" uid="uid://ba8ct45mgfs6o" path="res://Tower/BulletMaterial.tres" id="2_8ayw4"]
+[ext_resource type="Script" path="res://Tower/Common/Bullet.gd" id="1_i1dqd"]
+[ext_resource type="Material" uid="uid://ba8ct45mgfs6o" path="res://Tower/Normal/BulletMaterial.tres" id="2_7i8ae"]
 
 [sub_resource type="BoxMesh" id="2"]
-material = ExtResource("2_8ayw4")
+material = ExtResource("2_7i8ae")
 size = Vector3(0.05, 0.05, 20)
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1")
+script = ExtResource("1_i1dqd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.2146)
 mesh = SubResource("2")
 skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_8ayw4")
+surface_material_override/0 = ExtResource("2_7i8ae")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
