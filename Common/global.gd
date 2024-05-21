@@ -7,7 +7,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 	
 	
@@ -24,13 +24,13 @@ func get_closest(nodeList: Array, location: Vector3) -> Node:
 	return null
 
 
-func get_in_range(nodeList: Array, location: Vector3, range: float) -> Array[Node]:
+func get_in_range(nodeList: Array, location: Vector3, distance: float) -> Array[Node]:
 	var nodes = [] as Array[Node]
 	if nodeList.size() > 0:
 		for node in nodeList:
 			if is_instance_valid(node):
 				var dist = location.distance_to(node.global_position)
-				if dist < range:
+				if dist < distance:
 					nodes.append(node)
 		return nodes
 	return nodes

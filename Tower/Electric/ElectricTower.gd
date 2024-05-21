@@ -1,6 +1,6 @@
 extends Tower
 
-@onready var e_bullet_mat = load("res://Tower/ElectricBulletMaterial.tres")
+@onready var e_bullet_mat = load("res://Tower/Electric/ElectricBulletMaterial.tres")
 
 var battery = true
 

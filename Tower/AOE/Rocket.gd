@@ -1,5 +1,7 @@
 extends Area3D
 
+@onready var explosion = load("res://Common/Explosion.tscn")
+
 var target: Enemy
 
 var time_left: float
@@ -33,4 +35,7 @@ func _physics_process(delta):
 		var enemies_in_range = Global.get_in_range(enemies, global_position, 8)
 		for enemy: Enemy in enemies_in_range:
 			enemy.damage(Tower.DamageType.normal, 2)
+		var explo_instance = explosion.instantiate()
+		explo_instance.position = position
+		get_tree().root.add_child(explo_instance)
 		queue_free()
