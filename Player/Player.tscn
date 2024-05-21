@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://by7tm2e1cqqyd"]
+[gd_scene load_steps=13 format=3 uid="uid://by7tm2e1cqqyd"]
 
 [ext_resource type="PackedScene" path="res://Player/MovementController.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://c4rbhyw00cuk1" path="res://Player/Head.tscn" id="2"]
@@ -8,12 +8,16 @@
 [ext_resource type="Script" path="res://Player/Pickups.gd" id="5_1b3nt"]
 [ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Common/Ammo Box Material.tres" id="6_ur7yq"]
 [ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Common/Battery Material.tres" id="7_0n527"]
+[ext_resource type="Material" uid="uid://cjwduyau813h6" path="res://Common/rocket_bundle.tres" id="8_guqwq"]
 
 [sub_resource type="BoxMesh" id="1"]
 material = ExtResource("6_ur7yq")
 
 [sub_resource type="BoxMesh" id="BoxMesh_g54aa"]
 material = ExtResource("7_0n527")
+
+[sub_resource type="BoxMesh" id="BoxMesh_h7wsc"]
+material = ExtResource("8_guqwq")
 
 [node name="Player" instance=ExtResource("1")]
 
@@ -47,3 +51,11 @@ script = ExtResource("5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/Battery" index="0"]
 mesh = SubResource("BoxMesh_g54aa")
+
+[node name="RocketBundle" type="Node3D" parent="Pickups" index="2" groups=["ammo_box"]]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.532881, 0.0890193, -1.41915)
+visible = false
+script = ExtResource("5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pickups/RocketBundle" index="0"]
+mesh = SubResource("BoxMesh_h7wsc")

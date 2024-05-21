@@ -8,6 +8,7 @@ extends Node3D
 
 var ammo_pickup = preload("res://Ammo/ammo_box.tscn")
 var battery_pickup = preload("res://Ammo/battery.tscn")
+var rocket_bundle_pickup = preload("res://Ammo/rocket_bundle.tscn")
 
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
@@ -20,27 +21,34 @@ func _physics_process(_delta) -> void:
 	if raycast.is_colliding() and Input.is_action_just_pressed("fire"):
 		_interact()
 	elif pickup != Pickups.Pickup.NONE && Input.is_action_just_pressed("drop_item"):
-		match pickup:
-			Pickups.Pickup.AMMO_BOX:
-				pickups.remove_ammo()
-				var instance = ammo_pickup.instantiate()
-				instance.type = Pickups.Pickup.AMMO_BOX
-				get_tree().root.add_child(instance)
-				instance.global_rotation = global_rotation
-				instance.global_position = global_position
-				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
-				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
-			Pickups.Pickup.BATTERY:
-				var ammo = pickups.remove_battery()
-				var instance = battery_pickup.instantiate()
-				instance.type = Pickups.Pickup.BATTERY
-				instance.set_ammo(ammo)
-				get_tree().root.add_child(instance)
-				instance.global_rotation = global_rotation
-				instance.global_position = global_position
-				instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
-				instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
+		_spawn_and_throw_pickup(pickup)
 
+
+func _spawn_and_throw_pickup(pickup):
+	var instance
+	var ammo
+	match pickup:
+		Pickups.Pickup.AMMO_BOX:
+			ammo = pickups.remove_ammo()
+			instance = ammo_pickup.instantiate()
+			instance.type = Pickups.Pickup.AMMO_BOX
+		Pickups.Pickup.BATTERY:
+			ammo = pickups.remove_battery()
+			instance = battery_pickup.instantiate()
+			instance.type = Pickups.Pickup.BATTERY
+		Pickups.Pickup.ROCKET_BUNDLE:
+			ammo = pickups.remove_rocket_bundle()
+			instance = rocket_bundle_pickup.instantiate()
+			instance.type = Pickups.Pickup.ROCKET_BUNDLE
+		_:
+			pass
+			
+	instance.set_ammo(ammo)
+	get_tree().root.add_child(instance)
+	instance.global_rotation = global_rotation
+	instance.global_position = global_position
+	instance.position += Vector3(0, 0, -1).rotated(Vector3(0, 1, 0), global_rotation.y)
+	instance.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -88,11 +96,14 @@ func _interact() -> void:
 				if target.has_battery():
 					pickups.pickup_battery(target.ammo)
 					target.remove_battery()
-	elif pickups.pickup == Pickups.Pickup.BATTERY:
-		if target.is_in_group("charger"):
-			if not target.has_battery:
-				var ammo = pickups.remove_battery()
-				target.add_battery(ammo)
+		elif target.damage_type == Tower.DamageType.rocket and pickup == pickups.Pickup.ROCKET_BUNDLE:
+			var rocket_bundle = get_node("../Pickups/RocketBundle")
+			target.add_ammo(rocket_bundle.get_ammo())
+			pickups.remove_rocket_bundle()
+	elif target.is_in_group("charger") and pickups.pickup == Pickups.Pickup.BATTERY:
+		if not target.has_battery:
+			var ammo = pickups.remove_battery()
+			target.add_battery(ammo)
 	elif pickups.pickup == pickups.Pickup.NONE:
 		var ammo_box = get_node("../Pickups/AmmoBox")
 		if target.is_in_group("pickup"): # pickup interaction
@@ -100,6 +111,8 @@ func _interact() -> void:
 				pickups.pickup_battery(target.get_ammo())
 			elif target.type == Pickups.Pickup.AMMO_BOX:
 				pickups.pickup_ammo(target.get_ammo())
+			elif target.type == Pickups.Pickup.ROCKET_BUNDLE:
+				pickups.pickup_rocket_bundle(target.get_ammo())
 			target.queue_free()
 		elif target.is_in_group("ammo_stash"):
 			pickups.pickup_ammo(ammo_box.MAX_AMMO)
@@ -107,3 +120,5 @@ func _interact() -> void:
 			if target.has_battery:
 				var ammo = target.remove_battery()
 				pickups.pickup_battery(ammo)
+		elif target.is_in_group("rocket_stash"):
+			pickups.pickup_rocket_bundle(ammo_box.MAX_AMMO)

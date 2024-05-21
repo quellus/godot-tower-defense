@@ -6,7 +6,7 @@ class_name Tower extends CharacterBody3D
 @onready var timer = get_node("Timer")
 @onready var audio_stream: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
 
-enum DamageType { normal, electric, aoe }
+enum DamageType { normal, electric, rocket }
 
 var damage_type: DamageType
 var closestEnemy: Node = null

@@ -75,7 +75,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 1, 19)
 [node name="Ammo Stash" parent="." instance=ExtResource("9_dt1x8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53166, 1.64768, 13.7766)
 collision_layer = 5
-script = null
 
 [node name="Charger" parent="." instance=ExtResource("10_evqaj")]
 
@@ -83,8 +82,8 @@ script = null
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 21.8025)
 type = 1
 
-[node name="RocketStash" parent="." instance=ExtResource("12_5tdxu")]
-script = null
+[node name="RocketStash" parent="." groups=["rocket_stash"] instance=ExtResource("12_5tdxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.441, 1.39464, 28.3462)
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]

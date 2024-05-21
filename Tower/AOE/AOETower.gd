@@ -5,7 +5,7 @@ extends Tower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	damage_type = DamageType.normal
+	damage_type = DamageType.rocket
 	max_ammo = 20
 	ammo = 20
 	ammo_cost_per_shot = 1
