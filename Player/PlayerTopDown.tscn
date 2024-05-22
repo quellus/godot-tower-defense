@@ -1,13 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://b41mhlolgcjsp"]
+[gd_scene load_steps=8 format=3 uid="uid://b41mhlolgcjsp"]
+
+[ext_resource type="Script" path="res://Player/PlayerTopDown.gd" id="1_rjl2r"]
+[ext_resource type="Script" path="res://Player/PlayerInteraction.gd" id="2_mm61i"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6uea"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0p8fx"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_33byb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lfk6i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_akfco"]
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_rjl2r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_o6uea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_0p8fx")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1.86981, 0, 0, 0, 1.86981, 0, 0, 0, 1.86981, 0, 0, -1.52757)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("2_mm61i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_33byb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+visible = false
+mesh = SubResource("BoxMesh_lfk6i")
+
+[node name="DirectionVisual" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.492999, 0, 0, 0, 0.492999, 0, 0, 0, 0.492999, 0, 0, -0.706689)
+mesh = SubResource("BoxMesh_akfco")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

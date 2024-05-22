@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dpwkh6b72etmf"]
+[gd_scene load_steps=15 format=3 uid="uid://dpwkh6b72etmf"]
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ct0mywnfr4688" path="res://Charger/charger.tscn" id="10_evqaj"]
 [ext_resource type="PackedScene" uid="uid://ceybqfnv5yd8b" path="res://Ammo/RocketStash.tscn" id="12_5tdxu"]
 [ext_resource type="PackedScene" uid="uid://b41mhlolgcjsp" path="res://Player/PlayerTopDown.tscn" id="13_o74me"]
-[ext_resource type="Script" path="res://Player/PlayerTopDown.gd" id="14_0o2g7"]
 
 [sub_resource type="Curve3D" id="2"]
 bake_interval = 0.01
@@ -89,13 +88,12 @@ type = 1
 [node name="RocketStash" parent="." groups=["rocket_stash"] instance=ExtResource("12_5tdxu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.441, 1.39464, 28.3462)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Top Down Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.187758, 0.982215, 0, -0.982215, 0.187758, 22.0483, 26.9, 27.2686)
 current = true
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("13_o74me")]
+[node name="Player Top Down" parent="." instance=ExtResource("13_o74me")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25257, 1.83595, 30.3153)
-script = ExtResource("14_0o2g7")
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]
