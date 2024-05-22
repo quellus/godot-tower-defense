@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://by87y0aclhlq6"]
 
-[ext_resource type="Script" path="res://Tower/ElectricTower.gd" id="1_ntn8v"]
-[ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Tower.gltf" id="2_4tald"]
+[ext_resource type="Script" path="res://Tower/Electric/ElectricTower.gd" id="1_ntn8v"]
+[ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Common/Tower.gltf" id="2_4tald"]
 [ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3_gh5qs"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4_rgsop"]
-[ext_resource type="PackedScene" uid="uid://borxyoqpypnau" path="res://Tower/Electric Tower.glb" id="5_lsslj"]
+[ext_resource type="PackedScene" uid="uid://borxyoqpypnau" path="res://Tower/Electric/Electric Tower.glb" id="5_lsslj"]
 [ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Common/Battery Material.tres" id="6_hgdla"]
 
 [sub_resource type="CapsuleShape3D" id="1"]

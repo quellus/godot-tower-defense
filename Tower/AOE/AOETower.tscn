@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://r56l74detg3l"]
+[gd_scene load_steps=7 format=3 uid="uid://bvdiywf0u7wl6"]
 
-[ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Tower.gltf" id="1"]
-[ext_resource type="Script" path="res://Tower/NormalTower.gd" id="1_7ib2o"]
-[ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3"]
-[ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4"]
+[ext_resource type="Script" path="res://Tower/AOE/AOETower.gd" id="1_yy5wf"]
+[ext_resource type="PackedScene" uid="uid://c3rvkpu1hut1b" path="res://Tower/AOE/AOETowers.glb" id="2_hlhbe"]
+[ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3_6h3t2"]
+[ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4_6vl32"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605
@@ -12,15 +12,15 @@ height = 2.5
 [sub_resource type="ViewportTexture" id="2"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Normal Tower" type="CharacterBody3D" groups=["tower"]]
+[node name="AOE Tower" type="CharacterBody3D" groups=["tower"]]
 collision_layer = 5
-script = ExtResource("1_7ib2o")
+script = ExtResource("1_yy5wf")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54354, -0.738117)
 target_position = Vector3(0, 0, -20)
 
-[node name="Mesh" parent="." instance=ExtResource("1")]
+[node name="AOETowers" parent="." instance=ExtResource("2_hlhbe")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -35,7 +35,7 @@ one_shot = true
 transparent_bg = true
 size = Vector2i(500, 500)
 
-[node name="ProgressBar" parent="SubViewport" instance=ExtResource("3")]
+[node name="ProgressBar" parent="SubViewport" instance=ExtResource("3_6h3t2")]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.50012, 0)
@@ -43,5 +43,8 @@ billboard = 1
 texture = SubResource("2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4")
+stream = ExtResource("4_6vl32")
 volume_db = -15.238
+
+[node name="RocketSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89531, -0.324212)

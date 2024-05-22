@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://djmius66dlkwx"]
+
+[ext_resource type="Script" path="res://Common/AmmoContainer.gd" id="1_avej8"]
+[ext_resource type="Material" uid="uid://cjwduyau813h6" path="res://Common/rocket_bundle.tres" id="2_gck7o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ep0sj"]
+material = ExtResource("2_gck7o")
+
+[sub_resource type="BoxShape3D" id="4"]
+
+[node name="RocketBundle" type="RigidBody3D" groups=["pickup"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 13.5627)
+collision_layer = 5
+script = ExtResource("1_avej8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_ep0sj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("4")
