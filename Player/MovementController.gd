@@ -87,7 +87,6 @@ func accelerate(delta: float) -> void:
 
 
 func _on_pickups_picked_up_rocket_bundle():
-	print("picked up rocket bundle")
 	speed_multiplier = 0.5
 
 

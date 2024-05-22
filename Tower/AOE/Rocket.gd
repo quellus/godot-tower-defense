@@ -25,10 +25,10 @@ func _physics_process(delta):
 			var time_left_ratio = (time_left / total_time)
 			var p1 = start_pos
 			p1.y += peak_height
-			var p2 = start_pos
+			var p2 = target_pos
 			p2.y += peak_height
 			var next_position = start_pos.bezier_interpolate(p1, p2, target_pos, 1 - time_left_ratio)
-			look_at(next_position, Vector3.UP)
+			look_at(next_position + Vector3(0.001, 0, 0), Vector3.UP)
 			position = next_position
 			
 			time_left = time_left - delta
