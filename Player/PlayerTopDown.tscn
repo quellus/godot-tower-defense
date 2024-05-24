@@ -23,9 +23,9 @@ mesh = SubResource("CapsuleMesh_o6uea")
 shape = SubResource("CapsuleShape3D_0p8fx")
 
 [node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1.86981, 0, 0, 0, 1.86981, 0, 0, 0, 1.86981, 0, 0, -1.52757)
-collision_layer = 5
-collision_mask = 5
+transform = Transform3D(2.51436, 0, 0, 0, 2.51436, 0, 0, 0, 2.51436, 0, 0, -1.52757)
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("2_mm61i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -38,5 +38,3 @@ mesh = SubResource("BoxMesh_lfk6i")
 [node name="DirectionVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.492999, 0, 0, 0, 0.492999, 0, 0, 0, 0.492999, 0, 0, -0.706689)
 mesh = SubResource("BoxMesh_akfco")
-
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
