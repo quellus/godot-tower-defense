@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b41mhlolgcjsp"]
+[gd_scene load_steps=9 format=3 uid="uid://b41mhlolgcjsp"]
 
 [ext_resource type="Script" path="res://Player/PlayerTopDown.gd" id="1_rjl2r"]
 [ext_resource type="Script" path="res://Player/PlayerInteraction.gd" id="2_mm61i"]
+[ext_resource type="Script" path="res://Player/Inventory.gd" id="3_p3140"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6uea"]
 
@@ -38,3 +39,6 @@ mesh = SubResource("BoxMesh_lfk6i")
 [node name="DirectionVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.492999, 0, 0, 0, 0.492999, 0, 0, 0, 0.492999, 0, 0, -0.706689)
 mesh = SubResource("BoxMesh_akfco")
+
+[node name="Inventory" type="Node3D" parent="."]
+script = ExtResource("3_p3140")
