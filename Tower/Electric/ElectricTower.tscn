@@ -5,7 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3_gh5qs"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4_rgsop"]
 [ext_resource type="PackedScene" uid="uid://borxyoqpypnau" path="res://Tower/Electric/Electric Tower.glb" id="5_lsslj"]
-[ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Common/Battery Material.tres" id="6_hgdla"]
+[ext_resource type="PackedScene" uid="uid://boy4jn028mb7r" path="res://Ammo/battery.tscn" id="7_d5lms"]
+[ext_resource type="Script" path="res://Tower/AOE/AmmoHolder.gd" id="7_sj30d"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605015
@@ -13,9 +14,6 @@ height = 2.19
 
 [sub_resource type="ViewportTexture" id="2"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="BoxMesh" id="BoxMesh_66yrs"]
-material = ExtResource("6_hgdla")
 
 [node name="Electric Tower" type="CharacterBody3D" groups=["tower"]]
 collision_layer = 5
@@ -55,6 +53,10 @@ volume_db = -15.238
 [node name="Electric Tower2" parent="." instance=ExtResource("5_lsslj")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="Battery" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.411436, 0, 0, 0, 0.411436, 0, 0, 0, 0.411436, 0, 0.49838, 0.521323)
-mesh = SubResource("BoxMesh_66yrs")
+[node name="AmmoHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10442, 0.549497)
+script = ExtResource("7_sj30d")
+
+[node name="Battery" parent="AmmoHolder" instance=ExtResource("7_d5lms")]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

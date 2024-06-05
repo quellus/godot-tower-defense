@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://r56l74detg3l"]
+[gd_scene load_steps=9 format=3 uid="uid://r56l74detg3l"]
 
 [ext_resource type="PackedScene" uid="uid://bp02wpvein716" path="res://Tower/Common/Tower.gltf" id="1"]
 [ext_resource type="Script" path="res://Tower/Normal/NormalTower.gd" id="1_7ib2o"]
 [ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4"]
+[ext_resource type="Script" path="res://Tower/AOE/AmmoHolder.gd" id="5_kanph"]
+[ext_resource type="PackedScene" uid="uid://duo2qlmmdi4qs" path="res://Ammo/ammo_box.tscn" id="6_bfxku"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605
@@ -45,3 +47,10 @@ texture = SubResource("2")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4")
 volume_db = -15.238
+
+[node name="AmmoHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.717242, 0)
+script = ExtResource("5_kanph")
+
+[node name="ammo_box" parent="AmmoHolder" instance=ExtResource("6_bfxku")]
+process_mode = 4

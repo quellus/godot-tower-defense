@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceybqfnv5yd8b"]
+[gd_scene load_steps=6 format=3 uid="uid://ceybqfnv5yd8b"]
+
+[ext_resource type="Script" path="res://Ammo/AmmoSpawner.gd" id="1_3lit7"]
+[ext_resource type="Material" uid="uid://cjwduyau813h6" path="res://Common/rocket_bundle.tres" id="1_ixsdv"]
+[ext_resource type="PackedScene" uid="uid://djmius66dlkwx" path="res://Ammo/rocket_bundle.tscn" id="2_xvjte"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2koyy"]
+material = ExtResource("1_ixsdv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_omb4s"]
 
 [node name="RocketStash" type="StaticBody3D"]
 collision_layer = 5
+script = ExtResource("1_3lit7")
+ammo_container = ExtResource("2_xvjte")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_2koyy")
