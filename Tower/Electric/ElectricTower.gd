@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(_delta) -> void:
 	closestEnemy = Global.get_closest(enemies.get_children(), global_position)
-	if closestEnemy:
+	if ammo_holder.get_ammo() > 0 and closestEnemy:
 		var enemyLocation = closestEnemy.global_position
 		raycast.look_at(enemyLocation, Vector3.UP)
 		if raycast.is_colliding() && timer.is_stopped():
@@ -27,7 +27,7 @@ func _physics_process(_delta) -> void:
 					get_node("/root/L_Main").add_child(bulletInstance)
 					bulletInstance.get_node("MeshInstance3D").set_surface_override_material(0, e_bullet_mat)
 					timer.start(firerate)
-					enemy.damage(DamageType.ELECTRIC, 0)
+					enemy.damage(damage_type, 0)
 					ammo_holder.remove_ammo(ammo_cost_per_shot)
 					audio_stream.play()
 

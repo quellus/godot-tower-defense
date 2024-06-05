@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvdiywf0u7wl6"]
+[gd_scene load_steps=9 format=3 uid="uid://bvdiywf0u7wl6"]
 
 [ext_resource type="Script" path="res://Tower/AOE/RocketTower.gd" id="1_yy5wf"]
 [ext_resource type="PackedScene" uid="uid://c3rvkpu1hut1b" path="res://Tower/AOE/RocketTowers.glb" id="2_hlhbe"]
 [ext_resource type="PackedScene" uid="uid://b7rc3fbxe14vq" path="res://ProgressBar/ProgressBar.tscn" id="3_6h3t2"]
 [ext_resource type="AudioStream" uid="uid://gvgelqt1logd" path="res://Common/soft-balloon-pop-88692.mp3" id="4_6vl32"]
 [ext_resource type="Script" path="res://Tower/AOE/AmmoHolder.gd" id="5_c24pt"]
+[ext_resource type="PackedScene" uid="uid://djmius66dlkwx" path="res://Ammo/rocket_bundle.tscn" id="6_o65y5"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.605
@@ -52,3 +53,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89531, -0.324212)
 
 [node name="AmmoHolder" type="Node3D" parent="."]
 script = ExtResource("5_c24pt")
+
+[node name="RocketBundle" parent="AmmoHolder" instance=ExtResource("6_o65y5")]
+process_mode = 4

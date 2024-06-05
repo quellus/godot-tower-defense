@@ -21,7 +21,7 @@ func _physics_process(_delta) -> void:
 					bulletInstance.global_transform = raycast.global_transform
 					get_node("/root/L_Main").add_child(bulletInstance)
 					timer.start(firerate)
-					enemy.damage(DamageType.NORMAL, 1)
+					enemy.damage(damage_type, 1)
 					ammo_holder.remove_ammo(ammo_cost_per_shot)
 					audio_stream.play()
 

@@ -39,7 +39,7 @@ func add_ammo_container(target: AmmoContainer) -> void:
 	if has_ammo_container():
 		remove_ammo_container()
 	target.reparent(self)
-	target.position = position
+	target.global_position = global_position
 	target.rotation = Vector3(0,0,0)
 	target.process_mode = Node.PROCESS_MODE_DISABLED
 
