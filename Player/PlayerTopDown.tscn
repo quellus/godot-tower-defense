@@ -41,4 +41,8 @@ transform = Transform3D(0.492999, 0, 0, 0, 0.492999, 0, 0, 0, 0.492999, 0, 0, -0
 mesh = SubResource("BoxMesh_akfco")
 
 [node name="Inventory" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.337644, -1.15455)
 script = ExtResource("3_p3140")
+
+[connection signal="dropped_rocket_bundle" from="Inventory" to="." method="_on_inventory_dropped_rocket_bundle"]
+[connection signal="picked_up_rocket_bundle" from="Inventory" to="." method="_on_inventory_picked_up_rocket_bundle"]

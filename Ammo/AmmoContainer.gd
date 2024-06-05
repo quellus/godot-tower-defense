@@ -1,24 +1,34 @@
-extends Node3D
+class_name AmmoContainer extends Node3D
 
 @export var type: Pickups.Pickup = Pickups.Pickup.NONE
 
 const MAX_AMMO: int = 50
 var ammo: int = 50
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 func get_ammo() -> int:
 	return ammo
 
 
+func get_max_ammo() -> int:
+	return MAX_AMMO
+
+
+func get_type() -> Pickups.Pickup:
+	return type
+
+
 func remove_ammo(amount):
-	if MAX_AMMO - ammo <= 0:
+	if ammo - amount <= 0:
 		ammo = 0
 	else:
 		ammo -= amount
+
+
+func add_ammo(amount):
+	if amount + ammo > MAX_AMMO:
+		ammo = MAX_AMMO
+	else:
+		ammo += amount
 
 
 func set_ammo(amount):

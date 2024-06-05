@@ -26,3 +26,13 @@ func _move_character(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_inventory_dropped_rocket_bundle():
+	# TODO implement this
+	pass # Replace with function body.
+
+
+func _on_inventory_picked_up_rocket_bundle():
+	# TODO implement this
+	pass # Replace with function body.

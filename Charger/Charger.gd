@@ -1,34 +1,23 @@
 extends Node3D
 
-@onready var battery = get_node("Battery")
-@onready var timer = get_node("Timer")
+@onready var battery_holder: AmmoHolder = get_node("BatteryHolder")
+@onready var timer: Timer = get_node("Timer")
 
-var has_battery = false
+var charge_rate: int = 10
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-func _physics_process(_delta) -> void:
-	if has_battery:
-		if timer.is_stopped():
-			timer.start(1)
-			timer.one_shot = true
-			battery.set_ammo(battery.get_ammo() + 10)
-			print(battery.get_ammo())
+func add_ammo_container(target: AmmoContainer) -> void:
+	timer.start(1)
+	timer.one_shot = true
+	battery_holder.add_ammo_container(target)
 
 
-func add_battery(amount) -> void:
-	if not has_battery:
-		has_battery = true
-		battery.visible = true
-		battery.set_ammo(amount)
-	
-	
-func remove_battery() -> int:
-	if has_battery:
-		has_battery = false
-		battery.visible = false
-		return battery.get_ammo()
-	return 0
+func get_ammo_container() -> AmmoContainer:
+	return battery_holder.get_ammo_container()
+
+
+func _on_timer_timeout():
+	if battery_holder.has_ammo_container():
+		get_ammo_container().add_ammo(charge_rate)
+		print(battery_holder.get_ammo())
+		timer.start(1)
+		timer.one_shot = true

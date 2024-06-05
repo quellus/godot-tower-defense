@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c4rbhyw00cuk1" path="res://Player/Head.tscn" id="2"]
 [ext_resource type="Script" path="res://Player/Sprint.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cdrgca8a0i0vw" path="res://Player/Crosshair.png" id="4"]
-[ext_resource type="Script" path="res://Common/AmmoContainer.gd" id="5"]
+[ext_resource type="Script" path="res://Ammo/AmmoContainer.gd" id="5"]
 [ext_resource type="Script" path="res://Player/Pickups.gd" id="5_1b3nt"]
 [ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Common/Ammo Box Material.tres" id="6_ur7yq"]
 [ext_resource type="Material" uid="uid://dctgtblvvcrem" path="res://Common/Battery Material.tres" id="7_0n527"]

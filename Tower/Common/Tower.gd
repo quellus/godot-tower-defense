@@ -5,30 +5,28 @@ class_name Tower extends CharacterBody3D
 @onready var bullet = load("res://Tower/Common/Bullet.tscn")
 @onready var timer = get_node("Timer")
 @onready var audio_stream: AudioStreamPlayer3D = get_node("AudioStreamPlayer3D")
+@onready var ammo_holder = get_node("AmmoHolder")
 
-enum DamageType { normal, electric, rocket }
+enum DamageType { NORMAL, ELECTRIC, ROCKET }
 
 var damage_type: DamageType
+var ammo_type: Inventory.PickupType
 var closestEnemy: Node = null
 
-var max_ammo = 100
-var ammo = 50
 var ammo_cost_per_shot = 10
 var firerate = 1
 
 func on_ready():
-	$SubViewport/ProgressBar.max_value = max_ammo
-	$SubViewport/ProgressBar.value = ammo
+	$SubViewport/ProgressBar.max_value = ammo_holder.get_max_ammo()
+	$SubViewport/ProgressBar.value = ammo_holder.get_ammo()
 
 
-func add_ammo(amount) -> int:
-	if (ammo < max_ammo):
-		var empty = max_ammo - ammo
-		var add = 0
-		if empty > amount:
-			add = amount
-		else:
-			add = empty
-		ammo += add
-		return add
-	return 0
+func add_ammo_container(target: AmmoContainer) -> void:
+	ammo_holder.add_ammo_container(target)
+
+
+func get_ammo_container() -> AmmoContainer:
+	if ammo_holder.get_child_count() >= 1:
+		return ammo_holder.get_child(0)
+	else:
+		return null

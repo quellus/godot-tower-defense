@@ -78,15 +78,15 @@ func _interact() -> void:
 	var target = raycast.get_collider()
 	var target_parent: Node = target.get_parent()
 	if target.is_in_group("enemy") and target_parent.has_method("damage"): # enemy interaction
-		target_parent.damage(Tower.DamageType.normal, 1)
+		target_parent.damage(Tower.DamageType.NORMAL, 1)
 	elif target.is_in_group("tower") and target.has_method("add_ammo"):
 		var pickup = pickups.pickup
-		if target.damage_type == Tower.DamageType.normal and pickup == pickups.Pickup.AMMO_BOX: # normal tower
+		if target.damage_type == Tower.DamageType.NORMAL and pickup == pickups.Pickup.AMMO_BOX: # normal tower
 			var ammo_box = get_node("../Pickups/AmmoBox")
 			ammo_box.remove_ammo(ammo_box.get_ammo() - target.add_ammo(ammo_box.get_ammo()))
 			if ammo_box.get_ammo() <= 0:
 				pickups.remove_ammo()
-		elif target.damage_type == Tower.DamageType.electric and target.has_method("has_battery"): # electric tower
+		elif target.damage_type == Tower.DamageType.ELECTRIC and target.has_method("has_battery"): # electric tower
 			if pickup == pickups.Pickup.BATTERY:
 				var battery = get_node("../Pickups/Battery")
 				if not target.has_battery():
@@ -96,7 +96,7 @@ func _interact() -> void:
 				if target.has_battery():
 					pickups.pickup_battery(target.ammo)
 					target.remove_battery()
-		elif target.damage_type == Tower.DamageType.rocket and pickup == pickups.Pickup.ROCKET_BUNDLE:
+		elif target.damage_type == Tower.DamageType.ROCKET and pickup == pickups.Pickup.ROCKET_BUNDLE:
 			var rocket_bundle = get_node("../Pickups/RocketBundle")
 			target.add_ammo(rocket_bundle.get_ammo())
 			pickups.remove_rocket_bundle()

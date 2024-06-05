@@ -20,7 +20,7 @@ func _physics_process(_delta) -> void:
 
 
 func damage(damage_type: Tower.DamageType, amount):
-	if damage_type == Tower.DamageType.electric:
+	if damage_type == Tower.DamageType.ELECTRIC:
 			var debuff_timer = get_node("DebuffTimer")
 			debuff_timer.one_shot = true
 			debuff_timer.start(2)

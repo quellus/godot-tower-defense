@@ -5,9 +5,8 @@ extends Tower
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	damage_type = DamageType.rocket
-	max_ammo = 20
-	ammo = 20
+	damage_type = DamageType.ROCKET
+	ammo_type = Inventory.PickupType.ROCKET_BUNDLE
 	ammo_cost_per_shot = 1
 	firerate = 1
 	on_ready()
@@ -15,7 +14,7 @@ func _ready():
 
 func _physics_process(_delta) -> void:
 	closestEnemy = Global.get_closest(enemies.get_children(), global_position)
-	if ammo > 0 and closestEnemy:
+	if ammo_holder.get_ammo() > 0 and closestEnemy:
 		var enemyLocation = closestEnemy.global_position
 		raycast.look_at(enemyLocation, Vector3.UP)
 		if raycast.is_colliding() && timer.is_stopped():
@@ -28,10 +27,10 @@ func _physics_process(_delta) -> void:
 					rocket_instance.start_pos = rocketSpawn.global_position
 					rocket_instance.start()
 					timer.start(firerate)
-					ammo -= ammo_cost_per_shot
+					ammo_holder.remove_ammo(ammo_cost_per_shot)
 					#audio_stream.play()
 
 		enemyLocation.y = global_position.y
 		look_at(enemyLocation, Vector3.UP)
 		
-	$SubViewport/ProgressBar.value = ammo
+	$SubViewport/ProgressBar.value = ammo_holder.get_ammo()

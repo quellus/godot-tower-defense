@@ -1,41 +1,34 @@
 extends Area3D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
+@onready var inventory: Inventory = get_node("../Inventory")
 
 
 func _input(event):
 	if event.is_action_pressed("fire"):
 		var bodies = get_overlapping_bodies()
 		if bodies.size() > 0:
+			print("interacting")
 			var target = Global.get_closest(bodies, global_position)
 			if target.is_in_group("tower"):
 				_interact_with_tower(target)
 			elif target.is_in_group("pickup"):
-				_interact_with_pickup("pickup")
-			else:
-				# TODO implement interaction with other things like ammo stash and battery charger
-				pass
+				inventory.pickup_item(target)
+			elif target.is_in_group("ammo_stash") or target.is_in_group("charger"):
+				if inventory.has_pickup():
+					target.add_ammo_container(inventory.get_pickup_item())
+				else:
+					inventory.pickup_item(target.get_ammo_container())
+				
 	elif event.is_action_pressed("drop_item"):
-		# TODO implement inventory system
-		pass
+		inventory.drop_item()
 
 
-func _interact_with_tower(target):
-	# TODO implement this
-	print("interacting with tower")
-	target.add_ammo(50)
-	pass
+func _interact_with_tower(tower: Tower):
+	if inventory.has_pickup():
+		if inventory.get_pickup_type() == tower.ammo_type:
+			tower.add_ammo_container(inventory.get_pickup_item())
 
-
-func _interact_with_pickup(target):
-	# TODO implement this
-	print("interacting with pickup")
-	pass
+	else:
+		var item = tower.get_ammo_container()
+		if not item == null:
+			inventory.pickup_item(item)
