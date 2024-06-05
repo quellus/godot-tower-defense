@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dpwkh6b72etmf"]
+[gd_scene load_steps=14 format=3 uid="uid://dpwkh6b72etmf"]
 
 [ext_resource type="Script" path="res://Main/L_Main.gd" id="1"]
 [ext_resource type="Environment" uid="uid://her2pbrjs7tw" path="res://Main/Environment.tres" id="2"]
 [ext_resource type="MeshLibrary" uid="uid://ws1hbolc446l" path="res://Main/MapMeshLib.tres" id="3"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://by7tm2e1cqqyd" path="res://Player/Player.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://r56l74detg3l" path="res://Tower/Normal/NormalTower.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://bvdiywf0u7wl6" path="res://Tower/AOE/RocketTower.tscn" id="8_857ih"]
 [ext_resource type="PackedScene" uid="uid://che7ok55vwcfu" path="res://Ammo/ammo_stash.tscn" id="9_dt1x8"]
@@ -24,11 +23,6 @@ point_count = 6
 
 [node name="L_Main" type="Node3D"]
 script = ExtResource("1")
-
-[node name="Player" parent="." instance=ExtResource("7")]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02257, 2, 5.81021)
-visible = false
 
 [node name="Lighting" type="Node" parent="."]
 

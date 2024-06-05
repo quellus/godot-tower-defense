@@ -39,7 +39,7 @@ func pickup_item(target: Node3D) -> bool:
 		target.global_position = global_position
 		target.rotation = Vector3(0,0,0)
 		target.process_mode = Node.PROCESS_MODE_DISABLED
-		if target.get_type() == Pickups.Pickup.ROCKET_BUNDLE:
+		if target.get_type() == PickupType.ROCKET_BUNDLE:
 			picked_up_rocket_bundle.emit()
 		return true
 	return false
@@ -53,7 +53,7 @@ func drop_item():
 		pickup.global_rotation = global_rotation
 		pickup.global_position = global_position
 		pickup.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
-		if pickup.get_type() == Pickups.Pickup.ROCKET_BUNDLE:
+		if pickup.get_type() == Inventory.PickupType.ROCKET_BUNDLE:
 			dropped_rocket_bundle.emit()
 
 

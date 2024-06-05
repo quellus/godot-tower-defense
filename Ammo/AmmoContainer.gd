@@ -1,6 +1,6 @@
 class_name AmmoContainer extends Node3D
 
-@export var type: Pickups.Pickup = Pickups.Pickup.NONE
+@export var type: Inventory.PickupType = Inventory.PickupType.NONE
 
 const MAX_AMMO: int = 50
 var ammo: int = 50
@@ -13,7 +13,7 @@ func get_max_ammo() -> int:
 	return MAX_AMMO
 
 
-func get_type() -> Pickups.Pickup:
+func get_type() -> Inventory.PickupType:
 	return type
 
 

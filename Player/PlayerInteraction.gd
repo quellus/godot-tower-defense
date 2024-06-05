@@ -7,7 +7,6 @@ func _input(event):
 	if event.is_action_pressed("fire"):
 		var bodies = get_overlapping_bodies()
 		if bodies.size() > 0:
-			print("interacting")
 			var target = Global.get_closest(bodies, global_position)
 			if target.is_in_group("tower"):
 				_interact_with_tower(target)

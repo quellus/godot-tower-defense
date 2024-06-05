@@ -36,9 +36,7 @@ func get_ammo_container() -> AmmoContainer:
 	
 
 func add_ammo_container(target: AmmoContainer) -> void:
-	print("adding ammo container")
 	if has_ammo_container():
-		print("removing old ammo container")
 		remove_ammo_container()
 	target.reparent(self)
 	target.position = position
