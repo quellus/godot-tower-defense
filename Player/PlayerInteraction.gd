@@ -25,7 +25,9 @@ func _input(event):
 func _interact_with_tower(tower: Tower):
 	if inventory.has_pickup():
 		if inventory.get_pickup_type() == tower.ammo_type:
-			tower.add_ammo_container(inventory.get_pickup_item())
+			var item = inventory.get_pickup_item()
+			inventory.item_taken(inventory.get_pickup_type())
+			tower.add_ammo_container(item)
 
 	else:
 		var item = tower.get_ammo_container()

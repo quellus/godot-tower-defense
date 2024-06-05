@@ -53,8 +53,13 @@ func drop_item():
 		pickup.global_rotation = global_rotation
 		pickup.global_position = global_position
 		pickup.apply_central_impulse(Vector3(0, 0, -2).rotated(Vector3(0, 1, 0), global_rotation.y))
-		if pickup.get_type() == Inventory.PickupType.ROCKET_BUNDLE:
+		if pickup.get_type() == PickupType.ROCKET_BUNDLE:
 			dropped_rocket_bundle.emit()
+
+
+func item_taken(type: PickupType):
+	if type == PickupType.ROCKET_BUNDLE:
+		dropped_rocket_bundle.emit()
 
 
 func remove_pickup():
