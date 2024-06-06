@@ -59,4 +59,3 @@ script = ExtResource("7_sj30d")
 
 [node name="Battery" parent="AmmoHolder" instance=ExtResource("7_d5lms")]
 process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

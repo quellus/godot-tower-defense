@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://boy4jn028mb7r"]
+[gd_scene load_steps=6 format=3 uid="uid://boy4jn028mb7r"]
 
-[ext_resource type="Script" path="res://Ammo/AmmoContainer.gd" id="1_o7vmu"]
+[ext_resource type="Script" path="res://Ammo/Battery.gd" id="1_6qad7"]
+[ext_resource type="PackedScene" uid="uid://cdb5otoxv2pb1" path="res://Ammo/battery_mesh.tscn" id="2_32nfj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2clp"]
 albedo_color = Color(0, 0, 1, 1)
@@ -11,15 +12,18 @@ material = SubResource("StandardMaterial3D_j2clp")
 [sub_resource type="BoxShape3D" id="4"]
 
 [node name="Battery" type="RigidBody3D" groups=["pickup"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58493, 2.17722, 13.5627)
 collision_layer = 5
-script = ExtResource("1_o7vmu")
+script = ExtResource("1_6qad7")
 type = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
 mesh = SubResource("3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("4")
+
+[node name="Battery" parent="." instance=ExtResource("2_32nfj")]
+transform = Transform3D(0.264403, 0, 0, 0, 0.264403, 0, 0, 0, 0.264403, 0, -0.251527, 0)

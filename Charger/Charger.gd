@@ -18,6 +18,5 @@ func get_ammo_container() -> AmmoContainer:
 func _on_timer_timeout():
 	if battery_holder.has_ammo_container():
 		get_ammo_container().add_ammo(charge_rate)
-		print(battery_holder.get_ammo())
 		timer.start(1)
 		timer.one_shot = true
