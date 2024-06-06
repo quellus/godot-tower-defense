@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnywh6dw1cxmt"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_f12od"]
+
+[sub_resource type="Theme" id="Theme_l3ock"]
+default_font_size = 25
+
+[sub_resource type="Theme" id="Theme_c0frr"]
+default_font_size = 25
+
+[sub_resource type="Theme" id="Theme_hmuvt"]
+default_font_size = 25
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f12od")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 554.0
+offset_top = 259.0
+offset_right = 664.0
+offset_bottom = 396.0
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_l3ock")
+text = "Start"
+
+[node name="Options" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_c0frr")
+text = "Options"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_hmuvt")
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
