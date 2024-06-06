@@ -56,4 +56,3 @@ script = ExtResource("5_c24pt")
 
 [node name="RocketBundle" parent="AmmoHolder" instance=ExtResource("6_o65y5")]
 process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
