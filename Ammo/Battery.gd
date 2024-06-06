@@ -25,7 +25,6 @@ func add_ammo(amount):
 
 
 func _update_indicator():
-	var battery_mesh = $Battery.get_node("Battery").mesh as Mesh
 	var indicator_material = battery_mesh.surface_get_material(3)
 	var ammo_ratio: float = float(ammo) / MAX_AMMO
 	indicator_material.albedo_color = lerp(Color(1,0,0,1), Color(0,1,0,1),  ammo_ratio)
