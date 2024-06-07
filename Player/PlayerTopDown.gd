@@ -9,8 +9,16 @@ var speed_multiplier := 1.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+	var spawn_pos = get_tree().root.get_node("L_Main/SpawnPoint").global_position
+	spawn_pos.x = spawn_pos.x + randf_range(0.5, 2)
+	global_position = spawn_pos
+
+
 func _physics_process(delta):
-	_move_character(delta)
+	if is_multiplayer_authority():
+		_move_character(delta)
 
 
 func _move_character(delta):

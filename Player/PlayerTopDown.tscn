@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b41mhlolgcjsp"]
+[gd_scene load_steps=10 format=3 uid="uid://b41mhlolgcjsp"]
 
 [ext_resource type="Script" path="res://Player/PlayerTopDown.gd" id="1_rjl2r"]
 [ext_resource type="Script" path="res://Player/PlayerInteraction.gd" id="2_mm61i"]
@@ -13,6 +13,14 @@
 [sub_resource type="BoxMesh" id="BoxMesh_lfk6i"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_akfco"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nopa6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_rjl2r")
@@ -43,6 +51,9 @@ mesh = SubResource("BoxMesh_akfco")
 [node name="Inventory" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.337644, -1.15455)
 script = ExtResource("3_p3140")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nopa6")
 
 [connection signal="dropped_rocket_bundle" from="Inventory" to="." method="_on_inventory_dropped_rocket_bundle"]
 [connection signal="picked_up_rocket_bundle" from="Inventory" to="." method="_on_inventory_picked_up_rocket_bundle"]

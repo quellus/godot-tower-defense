@@ -23,6 +23,7 @@ point_count = 6
 
 [node name="L_Main" type="Node3D"]
 script = ExtResource("1")
+player_scene = ExtResource("13_o74me")
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -86,8 +87,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.8537, 1.39464, 8.67711)
 transform = Transform3D(1, 0, 0, 0, 0.187758, 0.982215, 0, -0.982215, 0.187758, 20.0485, 16.5063, 15.0739)
 current = true
 
-[node name="Player Top Down" parent="." instance=ExtResource("13_o74me")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8907, 1.83595, 7.8237)
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6709, 2.34166, 9.04254)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/PlayerTopDown.tscn")
+spawn_path = NodePath("..")
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/WaveTimer" to="EnemySpawner" method="_on_wave_timer_timeout"]
