@@ -22,16 +22,20 @@ func _physics_process(_delta) -> void:
 			if raycast.get_collider() && raycast.get_collider().get_parent():
 				var enemy = raycast.get_collider().get_parent()
 				if enemy.has_method("damage"):
-					var rocket_path_instance = rocket_path.instantiate()
-					rocket_path_instance.target = enemy
-					get_tree().root.add_child(rocket_path_instance)
-					rocket_path_instance.global_position = rocket_spawn.global_position
-					rocket_path_instance.start()
+					print("firing rocket")
+					_instantiate_rocket_path(enemy)
 					timer.start(firerate)
 					ammo_holder.remove_ammo(ammo_cost_per_shot)
-					audio_stream.play()
+					#audio_stream.play()
 
 		enemyLocation.y = global_position.y
 		look_at(enemyLocation, Vector3.UP)
-		
 	$SubViewport/ProgressBar.value = ammo_holder.get_ammo()
+
+
+func _instantiate_rocket_path(enemy: Enemy):
+	var rocket_path_instance = rocket_path.instantiate()
+	rocket_path_instance.target = enemy
+	get_tree().root.add_child(rocket_path_instance)
+	rocket_path_instance.global_position = rocket_spawn.global_position
+	rocket_path_instance.start()
