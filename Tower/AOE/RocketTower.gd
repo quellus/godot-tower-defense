@@ -1,7 +1,8 @@
 extends Tower
 
-@onready var rocket = load("res://Tower/AOE/Rocket.tscn")
-@onready var rocketSpawn = get_node("RocketSpawnPoint")
+@export var rocket_path: PackedScene
+@onready var rocket_spawn = get_node("RocketSpawnPoint")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,14 +22,14 @@ func _physics_process(_delta) -> void:
 			if raycast.get_collider() && raycast.get_collider().get_parent():
 				var enemy = raycast.get_collider().get_parent()
 				if enemy.has_method("damage"):
-					var rocket_instance = rocket.instantiate()
-					rocket_instance.target = enemy
-					get_tree().root.add_child(rocket_instance)
-					rocket_instance.start_pos = rocketSpawn.global_position
-					rocket_instance.start()
+					var rocket_path_instance = rocket_path.instantiate()
+					rocket_path_instance.target = enemy
+					get_tree().root.add_child(rocket_path_instance)
+					rocket_path_instance.global_position = rocket_spawn.global_position
+					rocket_path_instance.start()
 					timer.start(firerate)
 					ammo_holder.remove_ammo(ammo_cost_per_shot)
-					#audio_stream.play()
+					audio_stream.play()
 
 		enemyLocation.y = global_position.y
 		look_at(enemyLocation, Vector3.UP)

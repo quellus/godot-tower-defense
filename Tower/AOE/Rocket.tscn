@@ -7,7 +7,7 @@
 radius = 0.3
 height = 2.136
 
-[node name="Rocket" type="Area3D"]
+[node name="Rocket" type="PathFollow3D"]
 transform = Transform3D(0.475844, 0, 0, 0, 0.475844, 0, 0, 0, 0.475844, 0, 0, 0)
 script = ExtResource("1_m4yxx")
 
