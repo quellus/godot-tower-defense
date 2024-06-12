@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7thgeh6i534b"]
+
+[ext_resource type="Script" path="res://Ammo/RocketPath.gd" id="1_4833i"]
+[ext_resource type="PackedScene" uid="uid://dxshbk607ncsk" path="res://Tower/AOE/Rocket.tscn" id="2_ka8l4"]
+
+[sub_resource type="Curve3D" id="Curve3D_b6hkr"]
+
+[node name="RocketPath" type="Path3D"]
+curve = SubResource("Curve3D_b6hkr")
+script = ExtResource("1_4833i")
+rocket_scene = ExtResource("2_ka8l4")
