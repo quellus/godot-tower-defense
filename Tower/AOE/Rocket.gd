@@ -2,7 +2,6 @@ extends PathFollow3D
 
 @onready var explosion = load("res://Common/Explosion.tscn")
 
-var target: Enemy
 const MOVEMENT_SPEED: float = 10
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -6,8 +6,8 @@ extends Node3D
 @onready var enemies = get_node("/root/L_Main/Path3D")
 @onready var waveTimer = get_node("WaveTimer")
 
-const ENEMIES_PER_WAVE = 1
-var enemies_this_wave = 1
+const ENEMIES_PER_WAVE = 5
+var enemies_this_wave = 5
 var current_enemies = 0
 
 func _ready():

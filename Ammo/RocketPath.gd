@@ -18,4 +18,3 @@ func start():
 	
 	var rocket = rocket_scene.instantiate()
 	add_child(rocket)
-	rocket.target = target
