@@ -14,22 +14,18 @@ func _ready():
 
 
 func _physics_process(_delta) -> void:
-	closestEnemy = Global.get_closest(enemies.get_children(), global_position)
-	if ammo_holder.get_ammo() > 0 and closestEnemy:
-		var enemyLocation = closestEnemy.global_position
-		raycast.look_at(enemyLocation, Vector3.UP)
-		if raycast.is_colliding() && timer.is_stopped():
-			if raycast.get_collider() && raycast.get_collider().get_parent():
-				var enemy = raycast.get_collider().get_parent()
-				if enemy.has_method("damage"):
-					print("firing rocket")
-					_instantiate_rocket_path(enemy)
+	if ammo_holder.get_ammo() >= ammo_cost_per_shot:
+		closestEnemy = Global.get_closest(enemies.get_children(), global_position)
+		if closestEnemy:
+			var enemyLocation = closestEnemy.global_position
+			if timer.is_stopped() and closestEnemy.has_method("damage"):
+					_instantiate_rocket_path(closestEnemy)
 					timer.start(firerate)
 					ammo_holder.remove_ammo(ammo_cost_per_shot)
 					#audio_stream.play()
 
-		enemyLocation.y = global_position.y
-		look_at(enemyLocation, Vector3.UP)
+			enemyLocation.y = global_position.y
+			look_at(enemyLocation, Vector3.UP)
 	$SubViewport/ProgressBar.value = ammo_holder.get_ammo()
 
 

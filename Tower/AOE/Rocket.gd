@@ -5,18 +5,17 @@ extends PathFollow3D
 var target: Enemy
 const MOVEMENT_SPEED: float = 10
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	position = Vector3(0,0,0)
-	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	var parent = get_parent()
-	if progress < parent.curve.get_baked_length():
-		var movement_speed = MOVEMENT_SPEED
-		progress += movement_speed * delta
+	if progress + MOVEMENT_SPEED * delta < get_parent().curve.get_baked_length():
+		progress += MOVEMENT_SPEED * delta
 	else:
-		#TODO tell the path to free itself
-		print("rocket hit end")
-		queue_free()
+		var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+		var enemies_in_range = Global.get_in_range(enemies, global_position, 8)
+		for enemy: Enemy in enemies_in_range:
+			enemy.damage(Tower.DamageType.NORMAL, 2)
+		var explo_instance = explosion.instantiate()
+		get_tree().root.add_child(explo_instance)
+		explo_instance.global_position = global_position
+		
+		get_parent().queue_free() # Delete the path and itself
