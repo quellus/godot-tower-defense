@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b41mhlolgcjsp"]
+[gd_scene load_steps=11 format=3 uid="uid://b41mhlolgcjsp"]
 
 [ext_resource type="Script" path="res://Player/PlayerTopDown.gd" id="1_rjl2r"]
 [ext_resource type="Script" path="res://Player/PlayerInteraction.gd" id="2_mm61i"]
+[ext_resource type="PackedScene" uid="uid://0aye1ds7dquk" path="res://Player/Robot.glb" id="2_ri1tb"]
 [ext_resource type="Script" path="res://Player/Inventory.gd" id="3_p3140"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_o6uea"]
@@ -25,7 +26,11 @@ properties/1/replication_mode = 1
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_rjl2r")
 
+[node name="Robot" parent="." instance=ExtResource("2_ri1tb")]
+transform = Transform3D(-0.379464, 0, -3.31738e-08, 0, 0.379464, 0, 3.31738e-08, 0, -0.379464, 0, -0.888563, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_o6uea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -46,6 +51,7 @@ mesh = SubResource("BoxMesh_lfk6i")
 
 [node name="DirectionVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.492999, 0, 0, 0, 0.492999, 0, 0, 0, 0.492999, 0, 0, -0.706689)
+visible = false
 mesh = SubResource("BoxMesh_akfco")
 
 [node name="Inventory" type="Node3D" parent="."]

@@ -9,6 +9,16 @@ var speed_multiplier := 1.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
+func _ready():
+	
+	pass
+
+func _process(delta):
+	var animation_player = $Robot/AnimationPlayer as AnimationPlayer
+	if not animation_player.is_playing():
+		animation_player.play("Robot_Walking")
+
+
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 	var spawn_pos = get_tree().root.get_node("L_Main/SpawnPoint").global_position
