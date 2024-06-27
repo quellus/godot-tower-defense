@@ -67,6 +67,7 @@ func _interact_with_tower(tower: Tower):
 			inventory.pickup_item(item)
 
 
-func _on_crafting_done(ammo_container: AmmoContainer):
+func _on_crafting_done(crafter: AmmoCrafter, ammo_container: AmmoContainer):
 	crafting = false
 	inventory.pickup_item(ammo_container)
+	crafter.crafting_done.disconnect(_on_crafting_done)

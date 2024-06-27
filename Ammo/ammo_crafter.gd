@@ -1,6 +1,6 @@
-extends StaticBody3D
+class_name AmmoCrafter extends StaticBody3D
 
-signal crafting_done(ammo_container: AmmoContainer)
+signal crafting_done(crafter: AmmoCrafter, ammo_container: AmmoContainer)
 var ac_instance: AmmoContainer = null
 
 @export var ammo_container: PackedScene
@@ -35,13 +35,15 @@ func _on_crafting_end(crafter_id):
 	if not crafter == null:
 		crafting = false
 		$Timer.stop()
-		crafter.crafting_end.disconnect(_on_crafting_end)
+		if crafter.crafting_end.is_connected(_on_crafting_end):
+			crafter.crafting_end.disconnect(_on_crafting_end)
 	
 
 func _on_timer_timeout():
 	if crafting:
 		ac_instance.add_ammo(10)
 		if ac_instance.get_ammo() >= ac_instance.get_max_ammo():
-			crafting_done.emit(get_ammo_container())
+			crafting_done.emit(self, get_ammo_container())
+			
 			crafting = false
 			$Timer.stop()
