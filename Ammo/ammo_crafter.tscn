@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bklbcgdeq5fyu"]
+
+[ext_resource type="Script" path="res://Ammo/ammo_crafter.gd" id="1_po0h7"]
+[ext_resource type="PackedScene" uid="uid://duo2qlmmdi4qs" path="res://Ammo/ammo_box.tscn" id="2_c4dx0"]
+[ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Common/Ammo Box Material.tres" id="3_m54sr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jupyq"]
+material = ExtResource("3_m54sr")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e6h0i"]
+
+[node name="Ammo Crafter" type="StaticBody3D" groups=["ammo_crafter"]]
+collision_layer = 5
+script = ExtResource("1_po0h7")
+ammo_container = ExtResource("2_c4dx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_jupyq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_e6h0i")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ContainerHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.491651, 0)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

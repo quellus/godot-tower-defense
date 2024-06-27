@@ -1,16 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://duo2qlmmdi4qs"]
 
-[ext_resource type="Script" path="res://Ammo/AmmoContainer.gd" id="1_2dqjg"]
+[ext_resource type="Script" path="res://Ammo/ammo_box.gd" id="1_1837q"]
 [ext_resource type="Material" uid="uid://36b7bxwgwbo5" path="res://Common/Ammo Box Material.tres" id="2_1hwit"]
 
 [sub_resource type="BoxMesh" id="3"]
+resource_local_to_scene = true
 material = ExtResource("2_1hwit")
 
 [sub_resource type="BoxShape3D" id="4"]
 
 [node name="ammo_box" type="RigidBody3D" groups=["pickup"]]
 collision_layer = 5
-script = ExtResource("1_2dqjg")
+script = ExtResource("1_1837q")
 type = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
