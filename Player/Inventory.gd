@@ -35,6 +35,7 @@ func get_pickup_item() -> Node3D:
 
 func pickup_item(target: Node3D) -> bool:
 	if not has_pickup():
+		print("inventory reparenting item")
 		target.reparent(self)
 		target.global_position = global_position
 		target.rotation = Vector3(0,0,0)
