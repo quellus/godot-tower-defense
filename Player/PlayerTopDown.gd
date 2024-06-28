@@ -29,12 +29,12 @@ func _move_character(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		rotation.y = lerp_angle(input_dir.angle_to(Vector2(0,-1)), rotation.y, 0.7)
-		velocity.x = direction.x * SPEED * speed_multiplier
-		velocity.z = direction.z * SPEED * speed_multiplier
+		rotation.y = lerp_angle(input_dir.angle_to(Vector2(0,-1)), rotation.y, 0.6)
+		var intended_velocity = direction * SPEED * speed_multiplier
+		
+		velocity = velocity.lerp(intended_velocity, 0.2)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * speed_multiplier)
-		velocity.z = move_toward(velocity.z, 0, SPEED * speed_multiplier)
+		velocity = velocity.lerp(Vector3.ZERO, 0.6)
 
 	move_and_slide()
 
