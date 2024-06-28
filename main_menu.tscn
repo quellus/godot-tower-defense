@@ -1,9 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dnywh6dw1cxmt"]
 
+[ext_resource type="Theme" uid="uid://23ilbbugeme2" path="res://text_theme.tres" id="1_6l70b"]
 [ext_resource type="Script" path="res://MainMenu.gd" id="1_f12od"]
-
-[sub_resource type="Theme" id="Theme_l3ock"]
-default_font_size = 25
 
 [sub_resource type="Theme" id="Theme_c0frr"]
 default_font_size = 25
@@ -11,58 +9,63 @@ default_font_size = 25
 [sub_resource type="Theme" id="Theme_hmuvt"]
 default_font_size = 25
 
-[node name="MainMenu" type="Control"]
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_6l70b")
 script = ExtResource("1_f12od")
 
-[node name="MainMainMenu" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 554.0
-offset_top = 259.0
-offset_right = 664.0
-offset_bottom = 396.0
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Start" type="Button" parent="MainMainMenu"]
+[node name="MainMainMenu" type="VBoxContainer" parent="MainMenu/CenterContainer"]
 layout_mode = 2
-theme = SubResource("Theme_l3ock")
+
+[node name="Start" type="Button" parent="MainMenu/CenterContainer/MainMainMenu"]
+layout_mode = 2
+theme = ExtResource("1_6l70b")
 text = "Start"
 
-[node name="Options" type="Button" parent="MainMainMenu"]
+[node name="Options" type="Button" parent="MainMenu/CenterContainer/MainMainMenu"]
 layout_mode = 2
 theme = SubResource("Theme_c0frr")
 text = "Options"
 
-[node name="Exit" type="Button" parent="MainMainMenu"]
+[node name="Exit" type="Button" parent="MainMenu/CenterContainer/MainMainMenu"]
 layout_mode = 2
 theme = SubResource("Theme_hmuvt")
 text = "Exit"
 
-[node name="MultiplayerMenu" type="VBoxContainer" parent="."]
+[node name="MultiplayerMenu" type="VBoxContainer" parent="MainMenu/CenterContainer"]
 visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 
-[node name="Singleplayer" type="Button" parent="MultiplayerMenu"]
+[node name="Singleplayer" type="Button" parent="MainMenu/CenterContainer/MultiplayerMenu"]
 layout_mode = 2
 text = "Singleplayer"
 
-[node name="Client" type="Button" parent="MultiplayerMenu"]
+[node name="Client" type="Button" parent="MainMenu/CenterContainer/MultiplayerMenu"]
 layout_mode = 2
 text = "Client"
 
-[node name="Server" type="Button" parent="MultiplayerMenu"]
+[node name="Server" type="Button" parent="MainMenu/CenterContainer/MultiplayerMenu"]
 layout_mode = 2
 text = "Server"
 
-[connection signal="pressed" from="MainMainMenu/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MainMainMenu/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MainMainMenu/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="MultiplayerMenu/Singleplayer" to="." method="_on_singleplayer_pressed"]
-[connection signal="pressed" from="MultiplayerMenu/Client" to="." method="_on_client_pressed"]
-[connection signal="pressed" from="MultiplayerMenu/Server" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MainMainMenu/Start" to="MainMenu" method="_on_start_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MainMainMenu/Options" to="MainMenu" method="_on_options_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MainMainMenu/Exit" to="MainMenu" method="_on_exit_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MultiplayerMenu/Singleplayer" to="MainMenu" method="_on_singleplayer_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MultiplayerMenu/Client" to="MainMenu" method="_on_client_pressed"]
+[connection signal="pressed" from="MainMenu/CenterContainer/MultiplayerMenu/Server" to="MainMenu" method="_on_server_pressed"]

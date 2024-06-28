@@ -14,8 +14,8 @@ func _ready():
 
 
 func _on_start_pressed():
-	var main_main_menu = $MainMainMenu
-	var multiplayer_menu = $MultiplayerMenu
+	var main_main_menu = $CenterContainer/MainMainMenu
+	var multiplayer_menu = $CenterContainer/MultiplayerMenu
 	main_main_menu.visible = false
 	multiplayer_menu.visible = true
 
