@@ -38,7 +38,8 @@ func _interact():
 		elif target.is_in_group("ammo_stash") or target.is_in_group("charger"):
 			if not inventory.has_pickup():
 				var battery = target.get_ammo_container()
-				inventory.pickup_item(battery)
+				if battery != null:
+					inventory.pickup_item(battery)
 		elif target.is_in_group("ammo_crafter"):
 			crafting = true
 			if not target.crafting_done.is_connected(_on_crafting_done):
