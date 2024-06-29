@@ -11,6 +11,7 @@ func _ready():
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+	$CenterContainer/MainMainMenu/Start.grab_focus()
 
 
 func _on_start_pressed():
@@ -18,6 +19,7 @@ func _on_start_pressed():
 	var multiplayer_menu = $CenterContainer/MultiplayerMenu
 	main_main_menu.visible = false
 	multiplayer_menu.visible = true
+	multiplayer_menu.get_node("Singleplayer").grab_focus()
 
 
 func _on_options_pressed():
