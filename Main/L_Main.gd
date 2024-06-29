@@ -37,7 +37,7 @@ func _process(_delta) -> void:
 	
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("pause"):
 		get_tree().quit() # Quits the game
 
 
